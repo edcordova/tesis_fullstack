@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>TESIS BRAIAN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        <div class="main">
+             <div class="card">
+                <h1 class="card__title">CALING</h1>        
+                <h2 class="card__description">Haga click sobre el metodo a ejecutar.</h2>
+                <div class="button-container">
+                    
+                    <a href="/seleccion_tanques.html"><button  class='card__button' type="button" value="1">Calculos volumetricos</button></a>
+                    <a href="#"><button class='card__button' type="button" value="2">Perdidas de presion</button></a>
+                    <a href="#"><button class='card__button' type="button" value="3">Trayectoria de pozos</button></a>
+
+                </div>
+             </div>
+        </div>
+    </body>
+</html>

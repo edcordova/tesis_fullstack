@@ -1,0 +1,175 @@
+*, ::before, ::after{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+body{
+    
+    background-image: url(/image/background.webp);
+    color:grey
+    
+}
+
+
+.main{
+    background-color:#f1b48a ;
+    width:950px;
+    height:750px;
+    margin:20px auto;
+    display:flex;
+    border-radius: 10px;
+    
+}
+
+.card{
+    width:700px;
+    background: rgb(91,91,98);
+background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
+    margin: auto;
+    height: 630px;
+    border-radius: 10px;
+    border: solid 5px black
+    
+}
+
+.card__title{
+    text-align: center;
+    margin-top: 70px;
+   
+    /* padding:40px; */
+}
+
+.card__description{
+    text-align: center;
+    margin-top: 70px;
+}
+
+.button-container{
+    margin-top: 20px;
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 120px;
+    flex-wrap: wrap;
+    
+}
+
+.button{
+    height:75px;
+    width:200px;
+    
+}
+
+.card__button{
+   
+    height:75px;
+    width:200px;
+          
+}
+
+.form-tanques__container{
+    
+    width:100%;
+    display:flex;
+    justify-content: space-evenly;
+    margin: 60px auto;
+}
+
+.form-tanques{
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    
+}
+
+.form-tanques__container :nth-child(3){
+    margin-left: 10px;
+   
+    
+}
+
+.form-tanques__container :nth-child(4){
+    margin-left: 11px;
+   position:relative;
+   left:20px;
+    
+}
+
+
+.form-tanques__input{
+    width:200px;
+    margin: 10px;
+      
+}
+
+
+.no-white{
+    white-space: no-wrap;
+}
+
+.form__button-continue, .form__button-stop{
+    width: 40%;
+}
+
+.form__button-stop{
+    position:relative;
+    top:50px;
+    right:230px;
+    width: 150px;
+}
+
+.form__button-continue{
+    position:relative;
+    top:90px;
+    left:230px;
+    width: 150px;
+}
+
+.form__button--final{
+    margin-top: 50px;
+    width: 150px;
+    height: 25px;
+    
+}
+
+
+.form-tuberia__container{
+    
+    width:100%;
+    display:flex;
+    justify-content: space-evenly;
+    margin: 60px auto;
+}
+
+.form-tuberia{
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    
+}
+
+.form-tuberia__container :nth-child(3){
+    position:relative;
+   left:25px;
+   
+    
+}
+
+.form-tuberia__container :nth-child(4){
+
+   position:relative;
+   left:50px;
+    
+}
+
+
+.form-tuberia__input{
+    width:200px;
+    margin: 10px;
+      
+}

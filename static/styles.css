@@ -8,8 +8,8 @@
 
 body{
     
-    background-image: url(/image/background.webp);
-    color:grey
+    background-image: url('/static/image/background.webp');
+    color:grey;
     
 }
 
@@ -75,7 +75,7 @@ background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
     width:100%;
     display:flex;
     justify-content: space-evenly;
-    margin: 60px auto;
+    margin: 40px auto;
 }
 
 .form-tanques{
@@ -86,7 +86,7 @@ background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
     
 }
 
-.form-tanques__container :nth-child(3){
+/* .form-tanques__container :nth-child(3){
     margin-left: 10px;
    
     
@@ -97,7 +97,7 @@ background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
    position:relative;
    left:20px;
     
-}
+} */
 
 
 .form-tanques__input{
@@ -106,10 +106,17 @@ background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
       
 }
 
-
-.no-white{
-    white-space: no-wrap;
+.form-tanques__label{
+    position:relative;
+    right: 130px;
+    top: 28px;
 }
+
+
+/* .no-white{
+    white-space: no-wrap;
+    display:inline-block
+} */
 
 .form__button-continue, .form__button-stop{
     width: 40%;

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>TESIS BRAIAN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        <div class="main">
+             <div class="card">
+                <h1 class="card__title">CALING</h1>        
+                <h2 class="card__description">
+                    TANQUE #1
+                </h2>
+                <div class="form-tanques__container">
+                    
+                    <form class="form-tanques" method="post" name="form_tanques">
+                        {% csrf_token %}
+                        
+                        <label for="weight" class="form-tanques__label">Weight</label>
+                        <div class='form-tanques__input'>
+                        {{form.weight}}
+                        </div>
+                        <!-- <input class='form-tanques__input' type="text" name="weight" >ft -->
+                        
+
+                        
+                        <label for="height" class="form-tanques__label">Height</label>
+                        <div class='form-tanques__input'>
+                        {{form.height}}
+                        </div>
+                        <!-- <input class='form-tanques__input' type="text" name="height" >ft -->
+                        
+
+                       
+                        <label for="long" class="form-tanques__label">Long</label>
+                        <div class='form-tanques__input'>
+                        {{form.long}}
+                        </div>
+                        <!-- <input class='form-tanques__input ' type="text" name="long">ft -->
+                       
+
+                        
+                        
+                        <label for="mud" class="form-tanques__label">Mud</label>
+                        <div class='form-tanques__input'>
+                        {{form.mud}}
+                        </div>
+                        <!-- <input class='form-tanques__input' type="text" name="mud">lbm/gal -->
+                        
+                        
+
+                                           
+                       <button type="submit" class="form__button-continue">Enviar y agregar otro tanque</button>
+                       <button type="submit" class="form__button-stop">No agregar mas tanques y continuar</button>
+
+                    </form>
+                    
+                    
+                    
+
+                </div>
+             </div>
+        </div>
+    </body>
+</html>

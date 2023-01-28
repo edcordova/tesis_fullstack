@@ -125,21 +125,22 @@ background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
 .form__button-stop{
     position:relative;
     top:50px;
-    right:230px;
-    width: 150px;
+    right:150px;
+    width: 250px;
+    
 }
 
 .form__button-continue{
     position:relative;
-    top:90px;
-    left:230px;
-    width: 150px;
+    top:70px;
+    left:150px;
+    width:250px;
 }
 
 .form__button--final{
     margin-top: 50px;
     width: 150px;
-    height: 25px;
+    height: 75px;
     
 }
 
@@ -149,7 +150,7 @@ background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
     width:100%;
     display:flex;
     justify-content: space-evenly;
-    margin: 60px auto;
+    margin: 40px auto;
 }
 
 .form-tuberia{
@@ -160,23 +161,14 @@ background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
     
 }
 
-.form-tuberia__container :nth-child(3){
-    position:relative;
-   left:25px;
-   
-    
-}
-
-.form-tuberia__container :nth-child(4){
-
-   position:relative;
-   left:50px;
-    
-}
-
-
 .form-tuberia__input{
     width:200px;
     margin: 10px;
       
+}
+
+.form-tuberias__label{
+    position: relative;
+    right:150px;
+    top:28px;
 }

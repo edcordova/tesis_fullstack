@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>TESIS BRAIAN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        <div class="main">
+             <div class="card">
+                <h1 class="card__title">CALING</h1>        
+                <h2 class="card__description">
+                    Drill Pipe
+                </h2>
+                <div class="form-tuberia__container">
+                    
+                    <form class="form-tuberia" method="post" name="form_tuberias">
+                        {% csrf_token %}
+
+                        <label for="di" class="form-tuberias__label">Diametro Interno</label>
+                        <div class='form-tuberia__input'>
+                        {{form.di}}
+                        </div>
+                        <!-- <input class='form-tanques__input' type="text" name="weight" >ft -->
+                        
+
+                        
+                        <label for="de" class="form-tuberias__label">Diametro Externo</label>
+                        <div class='form-tuberia__input'>
+                        {{form.de}}
+                        </div>
+                        <!-- <input class='form-tanques__input' type="text" name="height" >ft -->
+                        
+
+                       
+                        <label for="li" class="form-tuberias__label">Longitud Inicial</label>
+                        <div class='form-tuberia__input'>
+                        {{form.li}}
+                        </div>
+                        <!-- <input class='form-tanques__input ' type="text" name="long">ft -->
+                       
+
+                        
+                        
+                        <label for="lf" class="form-tuberias__label">Longitud Final</label>
+                        <div class='form-tuberia__input'>
+                        {{form.lf}}
+                        </div>
+                                 
+
+                                       
+                                             
+                        <button type="submit" class="form__button form__button--final ">Agregar y continuar</button>
+
+                    </form>
+                                 
+
+                                           
+                   
+
+                   
+                    
+                    
+
+                </div>
+             </div>
+        </div>
+    </body>
+</html>

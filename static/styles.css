@@ -21,13 +21,25 @@ body{
     margin:20px auto;
     display:flex;
     border-radius: 10px;
+    box-shadow: 10px 10px 5px -3px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 5px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px -3px rgba(0,0,0,0.75);
+    
+}
+
+
+.arrow-left{
+    position: relative;
+    top:20px;
+    left:20px;
+    filter:invert(69%) sepia(74%) saturate(5874%) hue-rotate(162deg) brightness(96%) contrast(101%);
     
 }
 
 .card{
     width:700px;
     background: rgb(91,91,98);
-background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
+    background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
     margin: auto;
     height: 630px;
     border-radius: 10px;
@@ -37,14 +49,14 @@ background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
 
 .card__title{
     text-align: center;
-    margin-top: 70px;
+    margin-top: 30px;
    
     /* padding:40px; */
 }
 
 .card__description{
     text-align: center;
-    margin-top: 70px;
+    margin-top: 20px;
 }
 
 .button-container{
@@ -57,17 +69,49 @@ background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
     
 }
 
+.form__button{
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 10px;
+    transition:0.4s
+}
+
+.form__button:hover{
+    background-color: #f1b48a; 
+    color: black;
+}
+
 .button{
     height:75px;
     width:200px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 10px;
+    transition-duration: 0.4s;
     
 }
 
+.button:hover {
+    background-color: #f1b48a; 
+    color: black;
+}
 .card__button{
    
     height:75px;
     width:200px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 10px;
+    transition-duration: 0.4s;
           
+}
+
+.card__button:hover {
+    background-color: #f1b48a; 
+    color: black;
 }
 
 .form-tanques__container{
@@ -103,7 +147,7 @@ background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
 .form-tanques__input{
     width:200px;
     margin: 10px;
-      
+          
 }
 
 .form-tanques__label{
@@ -119,12 +163,23 @@ background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
 } */
 
 .form__button-continue, .form__button-stop{
-    width: 40%;
+    height:70px;
+    width:200px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 10px;
+    transition-duration: 0.4s;
+    
+}
+.form__button-continue:hover, .form__button-stop:hover {
+    background-color: #f1b48a; 
+    color: black;
 }
 
 .form__button-stop{
     position:relative;
-    top:50px;
+    top:0px;
     right:150px;
     width: 250px;
     
@@ -171,4 +226,38 @@ background: linear-gradient(25deg, rgba(91,91,98,1) 0%, rgba(7,98,128,1) 100%);
     position: relative;
     right:150px;
     top:28px;
+}
+
+.result__container{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.result__tanque-list{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+
+.result{
+    display: block;
+    margin-top: 10px;
+ 
+}
+
+.result__volumen-list{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.result__tuberias{
+    margin-top: 30px;
+}
+
+.result__extra{
+    margin-top: 50px;
 }

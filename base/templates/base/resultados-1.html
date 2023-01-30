@@ -11,13 +11,32 @@
     <body>
         <div class="main">
              <div class="card">
+                <a href="{% url 'restart' %}">
+                    <img class='arrow-left' src="/static/image/arrow-left.svg">
+                </a>
                 <h1 class="card__title">CALING</h1>        
-                <h2 class="card__description">Haga click sobre el metodo a ejecutar.</h2>
-                <div class="button-container">
-                    
-                    <a href="{% url 'seleccion-tanques' %}"><button  class='card__button' type="button" value="1">Calculos volumetricos</button></a>
-                    <a href="#"><button class='card__button' type="button" value="2">Perdidas de presion</button></a>
-                    <a href="#"><button class='card__button' type="button" value="3">Trayectoria de pozos</button></a>
+                <h2 class="card__description">Resultados de Calculos Volumetricos</h2>
+                <div class="result__container">
+                    <div class="result__tanque">
+                        <h2>SISTEMA DE SUPERFICIES</h2>
+                        
+                            <ul class="result__tanque-list">
+                                <li>CAPACIDAD: <span class="result">{{capacidad_ss_bbl}}</span></li>
+                                <li>VOLUMEN POR PIE: <span class="result">{{capacidad_ss_bbl}}</span></li>
+                                <li>VOLUMEN: <span class="result">{{volumen_mud}}</span></li>
+                            </ul>
+                                               
+                    </div>
+                    <div class="result__tuberias">
+                        <h2>VOLUMENES DE POZO</h2>
+                        <ul class="result__volumen-list">
+                            <li>DESPLAZADO: <span class="result">{{volumen_desplazado}}</span></li>
+                            <li>TUBERIA DE PERFORACION: <span class="result">{{volumen_seccion_tp_total}}</span></li>
+                            <li>POZO SIN TP: <span class="result">{{volumen_pozo}}</span></li>
+                            <li>ANULAR: <span class="result">{{volumen_anular}}</span></li>
+                        </ul>
+                        <p class="result__extra">VOLUMEN TOTAL DEL SISTEMA: <span class="result">{{volumen_total_sistema}}</span></p>
+                    </div>
 
                 </div>
              </div>

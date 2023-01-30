@@ -16,55 +16,55 @@
                 </a>
                 <h1 class="card__title">CALING</h1>        
                 <h2 class="card__description">
-                    Open Hole
+                    DATOS METODO 2
+                    
                 </h2>
                 <div class="form-tuberia__container">
                     
                     <form class="form-tuberia" method="post" name="form_tuberias">
                         {% csrf_token %}
 
-                        <label for="di" class="form-tuberias__label">Diametro Interno</label>
+                        <label for="di" class="form-tuberias__label">Tase de Bombeo</label>
                         <div class='form-tuberia__input'>
-                        {{form.di}}
+                        {{form.tasa_bombeo}}
                         </div>
                         <!-- <input class='form-tanques__input' type="text" name="weight" >ft -->
                         
 
                         
-                        <label for="de" class="form-tuberias__label">Diametro Externo</label>
+                        <label for="de" class="form-tuberias__label">Lectura 03</label>
                         <div class='form-tuberia__input'>
-                        {{form.de}}
+                        {{form.lectura_03}}
                         </div>
                         <!-- <input class='form-tanques__input' type="text" name="height" >ft -->
                         
 
                        
-                        <label for="li" class="form-tuberias__label">Longitud Inicial</label>
+                        <label for="li" class="form-tuberias__label">Vizcocidad Plastica</label>
                         <div class='form-tuberia__input'>
-                        {{form.li}}
+                        {{form.vizcocidad_plastica}}
                         </div>
                         <!-- <input class='form-tanques__input ' type="text" name="long">ft -->
                        
 
                         
                         
-                        <label for="lf" class="form-tuberias__label">Longitud Final</label>
+                        <label for="lf" class="form-tuberias__label">Punto Cedente</label>
                         <div class='form-tuberia__input'>
-                        {{form.lf}}
+                        {{form.punto_cedente}}
+                        </div>
+
+                        <label for="lf" class="form-tuberias__label">Densidad de Lodo</label>
+                        <div class='form-tuberia__input'>
+                        {{form.densidad_lodo}}
                         </div>
                                  
 
-                                       
-                                             
+                                           
                         <button type="submit" class="form__button form__button--final ">Agregar y continuar</button>
 
                     </form>
-                                 
-
-                                           
-                   
-
-                   
+                    
                     
                     
 

@@ -11,12 +11,15 @@
     <body>
         <div class="main">
              <div class="card">
+                <a href="{% url 'restart' %}">
+                    <img class='arrow-left' src="/static/image/arrow-left.svg">
+                </a>
                 <h1 class="card__title">CALING</h1>        
-                <h2 class="card__description">Desea agregar datos para tanques?</h2>
+                <h2 class="card__description">Desea agregar datos para linear?</h2>
                 <div class="button-container">
                     
-                    <a href="{% url 'form-tanques1' %}"><button  class='button' type="button" value="si">SI</button></a>
-                    <a href="#"><button class='button' type="button" value="no">NO</button></a>
+                    <a href="{% url 'form-linear1' %}"><button  class='button' type="button" value="si">SI</button></a>
+                    <a href="{% url 'form-openhole' %}"><button class='button' type="button" value="no">NO</button></a>
                     
 
                 </div>

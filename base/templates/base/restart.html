@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>TESIS BRAIAN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        <div class="main">
+             <div class="card">
+                <h1 class="card__title">CALING</h1>        
+                <h2 class="card__description">Desea comenzar desde el inicio?</h2>
+                <div class="button-container">
+                    
+                    <form method='GET'>
+                        <button  name='restart-si' class='button' type="submit" value="si">SI</button>
+                    </form>
+                    
+
+                   
+                    <a href="{{ref}}">
+                            <button name='restart-no' class='button' type="button" value="no">NO</button>
+                    </a>
+                    
+
+                    
+                    
+
+                </div>
+             </div>
+        </div>
+    </body>
+</html>

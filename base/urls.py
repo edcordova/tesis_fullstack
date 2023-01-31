@@ -3,8 +3,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('', views.home, name='home'),
     path('metodos/', views.metodos, name='metodos'),
     path('seleccion-linear/', views.seleccion_linear, name='seleccion-linear'),
+    path('seleccion-metodo3/', views.seleccion_metodo3, name='seleccion-metodo3'),
     path('form-metodo2/', views.form_metodo2, name='form-metodo2'),
     path('form-tanques1/', views.form_tanques1, name='form-tanques1'),
     path('form-tanques2/', views.form_tanques2, name='form-tanques2'),
@@ -18,5 +20,7 @@ urlpatterns = [
     path('resultados-1/', views.resultados1, name='resultados-1'),
     path('resultados-2/', views.resultados2, name='resultados-2'),
     path('restart/', views.restart, name='restart'),
-
+    path('form-j/', views.form_j, name='form-j'),
+    path('form-s/', views.form_s, name='form-s'),
+    path('form-horizontal/', views.form_horizontal, name='form-horizontal'),
 ]

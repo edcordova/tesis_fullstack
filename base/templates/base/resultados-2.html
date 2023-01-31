@@ -15,13 +15,16 @@
                     <img class='arrow-left' src="/static/image/arrow-left.svg">
                 </a>
                 <h1 class="card__title">CALING</h1>        
-                <h2 class="card__description">Haga click sobre el metodo a ejecutar.</h2>
-                <div class="button-container">
+                <h2 class="card__description">Resultados de Calculos de Presion</h2>
+                <div class="result__container">
+                    <h2>PERDIDAS DE PRESION</h2>
+                    <div class="grid-container">
+                            <div>SARTA DE PERFORACION: <span class="result">{{PERDIDA_PRESION_P}}</span></div>
+                            <div>ANULAR: <span class="result">{{PERDIDA_PRESION}}</span></div>
+                            <div>POZO:<span class="result"> {{PERDIDAS_TOTALES}}</span></div>
+                            <div>ECD:<span class="result">{{ECD}}</span></div>
+                    </div>                           
                     
-                    <a href="{% url 'seleccion-tanques' %}"><button  class='card__button' type="button" value="1">Calculos volumetricos</button></a>
-                    <a href="#"><button class='card__button' type="button" value="2">Perdidas de presion</button></a>
-                    <a href="#"><button class='card__button' type="button" value="3">Trayectoria de pozos</button></a>
-
                 </div>
              </div>
         </div>

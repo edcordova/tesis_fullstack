@@ -15,50 +15,53 @@
                     <img class='arrow-left' src="/static/image/arrow-left.svg">
                 </a>
                 <h1 class="card__title">CALING</h1>        
-                <h2 class="card__description">
-                    DATOS METODO 2
+                <h2 class="card__description--result">
+                    POZO TIPO J
                     
                 </h2>
-                <div class="form-tuberia__container">
+                <div class="form-metodo3__container">
                     
                     <form class="form-tuberia" method="post" name="form_tuberias">
                         {% csrf_token %}
 
-                        <label for="di" class="form-tuberias__label">Tase de Bombeo</label>
+                        
+                        <label for="di" class="form-tuberias__label">Grado Azimud</label>
                         <div class='form-tuberia__input'>
-                        {{form.tasa_bombeo}}
+                        {{form.grado_azimud}}
+                        </div>
+                        <!-- <input class='form-tanques__input' type="text" name="weight" >ft -->
+                        
+                        
+                        <label for="di" class="form-tuberias__label">Distancia Azimud</label>
+                        <div class='form-tuberia__input'>
+                        {{form.distancia_azimud}}
+                        </div>
+                        <!-- <input class='form-tanques__input' type="text" name="weight" >ft -->
+                        
+
+                        <label for="di" class="form-tuberias__label">Target TVD</label>
+                        <div class='form-tuberia__input'>
+                        {{form.target_tvd}}
                         </div>
                         <!-- <input class='form-tanques__input' type="text" name="weight" >ft -->
                         
 
                         
-                        <label for="de" class="form-tuberias__label">Lectura 03</label>
+                        <label for="de" class="form-tuberias__label">KOP</label>
                         <div class='form-tuberia__input'>
-                        {{form.lectura_03}}
+                        {{form.kop}}
                         </div>
                         <!-- <input class='form-tanques__input' type="text" name="height" >ft -->
                         
 
                        
-                        <label for="li" class="form-tuberias__label">Vizcocidad Plastica</label>
+                        <label for="li" class="form-tuberias__label">Build Radius</label>
                         <div class='form-tuberia__input'>
-                        {{form.vizcocidad_plastica}}
+                        {{form.build_radius}}
                         </div>
                         <!-- <input class='form-tanques__input ' type="text" name="long">ft -->
                        
-
-                        
-                        
-                        <label for="lf" class="form-tuberias__label">Punto Cedente</label>
-                        <div class='form-tuberia__input'>
-                        {{form.punto_cedente}}
-                        </div>
-
-                        <label for="lf" class="form-tuberias__label">Densidad de Lodo</label>
-                        <div class='form-tuberia__input'>
-                        {{form.densidad_lodo}}
-                        </div>
-                                 
+                                                                             
 
                                            
                         <button type="submit" class="form__button form__button--metodo3 ">Agregar y continuar</button>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>TESIS BRAIAN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        <div class="main">
+             <div class="card">
+                
+                <a href="{% url 'restart' %}">
+                <img class='arrow-left' src="/static/image/arrow-left.svg">
+                </a>
+                    
+                <h1 class="card__title">CALING</h1>        
+                <h2 class="card__description">Haga click sobre el metodo a ejecutar.</h2>
+                <div class="button-container">
+                    
+                    <form method='GET' >                 
+                    <button  class='card__button' type="submit" name='metodo-1' value="1">Tipo J</button>
+                    </form>    
+
+                    <form method='GET'>                 
+                        <button  class='card__button' type="submit" name='metodo-2' value="2">Tipo S</button>
+                    </form>   
+                    
+                    <form method='GET'>                 
+                        <button  class='card__button' type="submit" name='metodo-3' value="3">Horizontal</button>
+                    </form> 
+
+                    
+                    
+
+                </div>
+             </div>
+        </div>
+    </body>
+</html>

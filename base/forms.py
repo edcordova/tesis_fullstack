@@ -19,4 +19,29 @@ class Metodo2Form(forms.Form):
     punto_cedente=forms.FloatField(label = 'punto_cedente')
     densidad_lodo=  forms.FloatField(label = 'densidad_lodo')
 
+class Metodo3FormJ(forms.Form):
+    grado_azimud=  forms.FloatField(label = 'grado_azimud')
+    distancia_azimud=  forms.FloatField(label = 'distancia_azimud')
+    target_tvd= forms.FloatField(label = 'target_tvd')
+    kop=forms.FloatField(label = 'kop')
+    build_radius=forms.FloatField(label = 'build_radius')
+    
+
+class Metodo3FormS(forms.Form):
+    grado_azimud=  forms.FloatField(label = 'grado_azimud')
+    distancia_azimud=  forms.FloatField(label = 'distancia_azimud')
+    target_tvd= forms.FloatField(label = 'target_tvd')
+    kop=forms.FloatField(label = 'kop')
+    build_radius=forms.FloatField(label = 'build_radius')
+    drop_radius=forms.FloatField( label = 'drop_radius')
+    
+
+class Metodo3FormHorizontal(forms.Form):
+    grado_azimud=  forms.FloatField(label = 'grado_azimud')
+    distancia_azimud=  forms.FloatField(label = 'distancia_azimud')
+    target_tvd= forms.FloatField(label = 'target_tvd')
+    kop=forms.FloatField(label = 'kop')
+    build_radius1=forms.FloatField(label = 'build_radius1')
+    build_radius2=  forms.FloatField(label = 'build_radius2')
+    
     

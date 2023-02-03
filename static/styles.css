@@ -17,8 +17,8 @@ body{
 .main{
     background-color:#f1b48a ;
     width:950px;
-    height:750px;
-    margin:20px auto;
+    height:730px;
+    margin:10px auto;
     display:flex;
     border-radius: 10px;
     box-shadow: 10px 10px 5px -3px rgba(0,0,0,0.75);
@@ -65,11 +65,10 @@ body{
 }
 
 .button-container{
-    margin-top: 20px;
+    margin-top: 170px;
     display:flex;
     align-items: center;
     justify-content: space-evenly;
-    margin-top: 120px;
     flex-wrap: wrap;
     
 }
@@ -273,7 +272,7 @@ body{
 }
 
 .result__tuberias{
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 .result__extra{
@@ -310,6 +309,39 @@ body{
 
 .home__button{
     position: relative;
-    top:35%;
+    top:30%;
     left:40% ;
+}
+
+.logo-udo{
+    position:relative;
+    display:inline ;
+    width:100px ;
+    height:100px;
+    bottom:90px;
+    left:15px;
+
+}
+
+.img-div{
+    width:0px;
+    height: 0px;
+}
+
+.restart__title{
+    text-align: center;
+    margin-top: 52.35px;
+}
+
+.restart__description{
+    text-align: center;
+    margin-top: 80px;
+}
+
+.restar__button-container{
+    margin-top: 130px;
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }

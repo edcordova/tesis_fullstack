@@ -678,8 +678,17 @@ def resultados2(request):
 def resultados31(request):
     graph1_x=[0]
     graph1_y=[0]
-    graph2_x=[1,1]
+    graph2_x=[1]
     graph2_y=[1]
+
+    measured_depth=0
+    vertical_distance=0
+    inclination=0
+    horizontal_section=0
+    course_length = 100
+    north_south = 0
+    east_west = 0
+    last_azm = 0
 
     if 0 < AZM and AZM <= 90:
         X = 'NORTH'
@@ -723,18 +732,10 @@ def resultados31(request):
     ##CONVERSION A RADIANES##
     BUILDUP_RATE_RADIANES= BUILDUP_RATE*(math.pi/180)
     AZM_RADIANES = AZM*(math.pi/180)
-    MAX_HOLD_ANGULO_R = MAX_HOLD_ANGULO * (math.pi/180)
+    MAX_HOLD_ANGULO_RADIANES = MAX_HOLD_ANGULO * (math.pi/180)
    
-    measured_depth=0
-    vertical_distance=0
-    inclination=0
-    horizontal_section=0
-    course_length = 100
-    north_south = 0
-    east_west = 0
-    last_azm = 0
-    graph2_x=[]
-    graph2_y=[]
+    
+    
 
     while True:
         if measured_depth<KICKOFF_POINT:
@@ -742,7 +743,7 @@ def resultados31(request):
             graph2_x.append(horizontal_section)
             graph2_y.append(vertical_distance)
         
-        elif measured_depth>=KICKOFF_POINT and inclination<MAX_HOLD_ANGULO_R:
+        elif measured_depth>=KICKOFF_POINT and inclination<MAX_HOLD_ANGULO_RADIANES:
 
             last_inclination=inclination
             last_north_south= north_south
@@ -805,35 +806,6 @@ def resultados31(request):
         measured_depth+=100
 
 
-    # linea_b = math.sin((BETA*math.pi)/180) * DISTANCE_AZM
-    # linea_a = math.cos((BETA*math.pi)/180) * DISTANCE_AZM
-    # graph1_x.append(linea_a)
-    # graph1_y.append(linea_b)
-
-    # BUILDUP_RATE = 5729.58 / BUILD_RADIUS
-    # LINEA_DC = abs(BUILD_RADIUS - DISTANCE_AZM)
-    # LINEA_DO = TARGET_TVD - KICKOFF_POINT
-    # ANGULO_DOC = math.degrees(math.atan(LINEA_DC/LINEA_DO))
-    # LINEA_OC = LINEA_DO/math.cos(((ANGULO_DOC*math.pi)/180))
-    # ANGULO_BOC = math.degrees(math.acos(BUILD_RADIUS/LINEA_OC))
-    # if BUILD_RADIUS < DISTANCE_AZM :
-    #     ANGULO_BOD = ANGULO_BOC - ANGULO_DOC
-    # elif BUILD_RADIUS > DISTANCE_AZM :
-    #     ANGULO_BOD = ANGULO_BOC + ANGULO_DOC
-    # MAX_HOLD_ANGULO = 90 - ANGULO_BOD
-    # END_OF_BUILD_TVD = KICKOFF_POINT + (BUILD_RADIUS * math.sin((MAX_HOLD_ANGULO*math.pi)/180))
-    # END_OF_BUILD_MD = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE) * 100)
-    # END_OF_BUILD_DISPLACEMENT = BUILD_RADIUS - (BUILD_RADIUS * math.cos((MAX_HOLD_ANGULO*math.pi)/180))
-    # LINEA_BC = math.sqrt((LINEA_OC**2) - (BUILD_RADIUS**2))
-    # TOTAL_MEASURED_DEPTH = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE)*100) + LINEA_BC
-
-    # graph2_x.append(END_OF_BUILD_DISPLACEMENT)
-    # graph2_x.append(DISTANCE_AZM)
-    # graph2_y.append(KICKOFF_POINT)
-    # graph2_y.append(END_OF_BUILD_TVD)
-    # graph2_y.append(TARGET_TVD)
-
-
     context={
         'BUILDUP_RATE':BUILDUP_RATE,
         'MAX_HOLD_ANGULO':MAX_HOLD_ANGULO,
@@ -854,6 +826,14 @@ def resultados32(request):
     graph1_y=[0]
     graph2_x=[1]
     graph2_y=[1]
+    measured_depth=0
+    vertical_distance=0
+    inclination=0
+    horizontal_section=0
+    course_length = 100
+    north_south = 0
+    east_west = 0
+    last_azm = 0
 
     if 0 < AZM and AZM <= 90:
         X = 'NORTH'
@@ -892,35 +872,29 @@ def resultados32(request):
     STAR_OF_DROP_DISPLACEMENT = END_OF_BUILD_DISPLACEMENT + (LINEA_OG * math.sin((MAX_HOLD_ANGULO*math.pi)/180))
     TOTAL_MEASURED_DEPTH = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE)*100) + LINEA_OG +((MAX_HOLD_ANGULO/DROPOFF_RATE)*100)
 
+    #CONVSERION A RADIANES
     BUILDUP_RATE_RADIANES= BUILDUP_RATE*(math.pi/180)
     AZM_RADIANES = AZM*(math.pi/180)
-    MAX_HOLD_ANGULO_R = MAX_HOLD_ANGULO*(math.pi/180)
-   
-    measured_depth=0
-    vertical_distance=0
-    inclination=0
-    horizontal_section=0
-    course_length = 100
-    north_south = 0
-    east_west = 0
-    last_azm = 0
-    
+    MAX_HOLD_ANGULO_RADIANES = MAX_HOLD_ANGULO * (math.pi/180)
+    DROPOFF_RATE_RADIANES = DROPOFF_RATE* (math.pi/180)
+   ###############################
+  
     while True:
         if measured_depth<KICKOFF_POINT:
             vertical_distance=measured_depth
             graph2_x.append(horizontal_section)
             graph2_y.append(vertical_distance)
 
-        elif measured_depth>=KICKOFF_POINT and inclination<MAX_HOLD_ANGULO_R:
+        ###############BLOQUE QUE MOVI PARA QUE ENTRARA AQUI PRIMERO###########
+        elif measured_depth >= STAR_OF_DROP_MD:
 
             last_inclination=inclination
             last_north_south= north_south
             last_vertical_distance = vertical_distance
             last_east_west = east_west
 
-            inclination+=BUILDUP_RATE_RADIANES
-            
-            dog_leg_severity= ((math.degrees(math.acos((math.sin(last_inclination)*math.sin(inclination)*math.cos(AZM_RADIANES - last_azm)) + (math.cos(last_inclination)*math.cos(inclination)))))*100)/course_length
+            inclination-=DROPOFF_RATE_RADIANES
+
             north_south = last_north_south + ((math.sin(last_inclination)*math.cos(last_azm)) + (math.sin(inclination)*math.cos(AZM_RADIANES)))*(1*(course_length/2))
             east_west = last_east_west + ((math.sin(last_inclination)*math.sin(last_azm)) + (math.sin(inclination)*math.sin(AZM_RADIANES)))*(1*(course_length/2))
             vertical_distance = last_vertical_distance + (math.cos(last_inclination) + math.cos(inclination))*(1*(course_length/2))
@@ -928,7 +902,41 @@ def resultados32(request):
             if 0 < AZM and AZM <= 90:
                 clouser_azimuth = math.degrees(abs(math.atan(east_west/north_south)))
             elif 90 < AZM and AZM <= 180:
-                clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
+               clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
+            elif 180 < AZM and AZM <= 270:
+                clouser_azimuth = 180 + math.degrees(abs(math.atan(east_west/north_south)))
+            elif 270 < AZM and AZM <= 360:
+                clouser_azimuth = 360 - math.degrees(abs(math.atan(east_west/north_south)))
+            directional_difference = AZM - clouser_azimuth
+            horizontal_section = clouser_distance * math.cos(directional_difference)
+            last_azm = AZM_RADIANES
+            print(f"el valor de x es{horizontal_section}.")
+            print(f"el valor de y es{vertical_distance}.")
+            graph2_x.append(horizontal_section)
+            graph2_y.append(vertical_distance)
+
+            
+
+            if measured_depth>=TOTAL_MEASURED_DEPTH:
+                break
+        #############################################################
+        elif measured_depth>=KICKOFF_POINT and inclination<MAX_HOLD_ANGULO_RADIANES:
+
+            last_inclination=inclination
+            last_north_south= north_south
+            last_vertical_distance = vertical_distance
+            last_east_west = east_west
+
+            inclination+=BUILDUP_RATE_RADIANES
+            # dog_leg_severity= ((math.degrees(math.acos((math.sin(last_inclination)*math.sin(inclination)*math.cos(AZM_RADIANES - last_azm)) + (math.cos(last_inclination)*math.cos(inclination)))))*100)/course_length
+            north_south = last_north_south + ((math.sin(last_inclination)*math.cos(last_azm)) + (math.sin(inclination)*math.cos(AZM_RADIANES)))*(1*(course_length/2))
+            east_west = last_east_west + ((math.sin(last_inclination)*math.sin(last_azm)) + (math.sin(inclination)*math.sin(AZM_RADIANES)))*(1*(course_length/2))
+            vertical_distance = last_vertical_distance + (math.cos(last_inclination) + math.cos(inclination))*(1*(course_length/2))
+            clouser_distance = math.sqrt(((north_south)**2)+((east_west)**2))
+            if 0 < AZM and AZM <= 90:
+                clouser_azimuth = math.degrees(abs(math.atan(east_west/north_south)))
+            elif 90 < AZM and AZM <= 180:
+               clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
             elif 180 < AZM and AZM <= 270:
                 clouser_azimuth = 180 + math.degrees(abs(math.atan(east_west/north_south)))
             elif 270 < AZM and AZM <= 360:
@@ -939,62 +947,32 @@ def resultados32(request):
             graph2_y.append(vertical_distance)
             last_azm = AZM_RADIANES
 
-        elif measured_depth>= END_OF_BUILD_MD:
+        elif measured_depth>= END_OF_BUILD_MD and measured_depth < STAR_OF_DROP_MD:
+            inclination = MAX_HOLD_ANGULO_RADIANES
             last_inclination=inclination
             last_north_south= north_south
             last_vertical_distance = vertical_distance
-            last_east_west = east_west
-
-            if measured_depth>=STAR_OF_DROP_MD:
-                last_inclination=inclination
-                last_north_south= north_south
-                last_vertical_distance = vertical_distance
-                last_east_west = east_west
-
-                inclination -= DROPOFF_RATE
-
-                dog_leg_severity= ((math.degrees(math.acos((math.sin(last_inclination)*math.sin(inclination)*math.cos(AZM_RADIANES - last_azm)) + (math.cos(last_inclination)*math.cos(inclination)))))*100)/course_length
-                north_south = last_north_south + ((math.sin(last_inclination)*math.cos(last_azm)) + (math.sin(inclination)*math.cos(AZM_RADIANES)))*(1*(course_length/2))
-                east_west = last_east_west + ((math.sin(last_inclination)*math.sin(last_azm)) + (math.sin(inclination)*math.sin(AZM_RADIANES)))*(1*(course_length/2))
-                vertical_distance = last_vertical_distance + (math.cos(last_inclination) + math.cos(inclination))*(1*(course_length/2))
-                clouser_distance = math.sqrt(((north_south)**2)+((east_west)**2))
-                if 0 < AZM and AZM <= 90:
-                    clouser_azimuth = math.degrees(abs(math.atan(east_west/north_south)))
-                elif 90 < AZM and AZM <= 180:
-                    clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
-                elif 180 < AZM and AZM <= 270:
-                    clouser_azimuth = 180 + math.degrees(abs(math.atan(east_west/north_south)))
-                elif 270 < AZM and AZM <= 360:
-                    clouser_azimuth = 360 - math.degrees(abs(math.atan(east_west/north_south)))
-                directional_difference = AZM - clouser_azimuth
-                horizontal_section = clouser_distance * math.cos(directional_difference)
-                graph2_x.append(horizontal_section)
-                graph2_y.append(vertical_distance)
-                last_azm = AZM_RADIANES
-            else:
-                dog_leg_severity= ((math.degrees(math.acos((math.sin(last_inclination)*math.sin(inclination)*math.cos(AZM_RADIANES - last_azm)) + (math.cos(last_inclination)*math.cos(inclination)))))*100)/course_length
-                north_south = last_north_south + ((math.sin(last_inclination)*math.cos(last_azm)) + (math.sin(inclination)*math.cos(AZM_RADIANES)))*(1*(course_length/2))
-                east_west = last_east_west + ((math.sin(last_inclination)*math.sin(last_azm)) + (math.sin(inclination)*math.sin(AZM_RADIANES)))*(1*(course_length/2))
-                vertical_distance = last_vertical_distance + (math.cos(last_inclination) + math.cos(inclination))*(1*(course_length/2))
-                clouser_distance = math.sqrt(((north_south)**2)+((east_west)**2))
-                if 0 < AZM and AZM <= 90:
-                    clouser_azimuth = math.degrees(abs(math.atan(east_west/north_south)))
-                elif 90 < AZM and AZM <= 180:
-                    clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
-                elif 180 < AZM and AZM <= 270:
-                    clouser_azimuth = 180 + math.degrees(abs(math.atan(east_west/north_south)))
-                elif 270 < AZM and AZM <= 360:
-                    clouser_azimuth = 360 - math.degrees(abs(math.atan(east_west/north_south)))
-                directional_difference = AZM - clouser_azimuth
-                horizontal_section = clouser_distance * math.cos(directional_difference)
-                last_azm = AZM_RADIANES
-                graph2_x.append(horizontal_section)
-                graph2_y.append(vertical_distance)
-
-
+            last_east_west = east_west    
             
-        if measured_depth >= TOTAL_MEASURED_DEPTH: 
-            break
+            # dog_leg_severity= ((math.degrees(math.acos((math.sin(last_inclination)*math.sin(inclination)*math.cos(AZM_RADIANES - last_azm)) + (math.cos(last_inclination)*math.cos(inclination)))))*100)/course_length
+            north_south = last_north_south + ((math.sin(last_inclination)*math.cos(last_azm)) + (math.sin(inclination)*math.cos(AZM_RADIANES)))*(1*(course_length/2))
+            east_west = last_east_west + ((math.sin(last_inclination)*math.sin(last_azm)) + (math.sin(inclination)*math.sin(AZM_RADIANES)))*(1*(course_length/2))
+            vertical_distance = last_vertical_distance + (math.cos(last_inclination) + math.cos(inclination))*(1*(course_length/2))
+            clouser_distance = math.sqrt(((north_south)**2)+((east_west)**2))
+            if 0 < AZM and AZM <= 90:
+                clouser_azimuth = math.degrees(abs(math.atan(east_west/north_south)))
+            elif 90 < AZM and AZM <= 180:
+               clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
+            elif 180 < AZM and AZM <= 270:
+                clouser_azimuth = 180 + math.degrees(abs(math.atan(east_west/north_south)))
+            elif 270 < AZM and AZM <= 360:
+                clouser_azimuth = 360 - math.degrees(abs(math.atan(east_west/north_south)))
+            directional_difference = AZM - clouser_azimuth
+            horizontal_section = clouser_distance * math.cos(directional_difference)
+            last_azm = AZM_RADIANES
+            graph2_x.append(horizontal_section)
+            graph2_y.append(vertical_distance)
+
         
 
         measured_depth+=100
@@ -1019,8 +997,16 @@ def resultados32(request):
 def resultados33(request):
     graph1_x=[0]
     graph1_y=[0]
-    graph2_x=[1,1]
+    graph2_x=[1]
     graph2_y=[1]
+    measured_depth=0
+    vertical_distance=0
+    inclination=0
+    horizontal_section=0
+    course_length = 100
+    north_south = 0
+    east_west = 0
+    last_azm = 0
 
     if 0 < AZM and AZM <= 90:
         X = 'NORTH'
@@ -1044,7 +1030,6 @@ def resultados33(request):
     graph1_x.append(linea_a)
     graph1_y.append(linea_b)
 
-
     BUILDUP_RATE_1 = 5729.58 / BUILD_RADIUS_1
     BUILDUP_RATE_2 = 5729.58 / BUILD_RADIUS_2
     LINEA_EG = (TARGET_TVD -KICKOFF_POINT) - BUILD_RADIUS_2
@@ -1063,13 +1048,110 @@ def resultados33(request):
     ANGULO_CGD = 90 - MAX_HOLD_ANGULO
     TOTAL_MEASURED_DEPTH = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE_1)*100) + LINEA_FG +((ANGULO_CGD/BUILDUP_RATE_2)*100)
 
-    graph2_x.append(END_OF_BUILD_DISPLACEMENT_1)
-    graph2_x.append(END_OF_BUILD_DISPLACEMENT_2)
-    graph2_x.append(TOTAL_MEASURED_DEPTH)
-    graph2_y.append(KICKOFF_POINT)
-    graph2_y.append(END_OF_BUILD_TVD_1)
-    graph2_y.append(STAR_2ND_BUILD_MD)
-    graph2_y.append(TARGET_TVD)
+     #CONVSERION A RADIANES
+    BUILDUP_RATE_1_RADIANES= BUILDUP_RATE_1*(math.pi/180)
+    AZM_RADIANES = AZM*(math.pi/180)
+    MAX_HOLD_ANGULO_RADIANES = MAX_HOLD_ANGULO * (math.pi/180)
+    BUILDUP_RATE_2_RADIANES = BUILDUP_RATE_2* (math.pi/180)
+   ###############################
+  
+    while True:
+        if measured_depth<KICKOFF_POINT:
+            vertical_distance=measured_depth
+            graph2_x.append(horizontal_section)
+            graph2_y.append(vertical_distance)
+
+        ###############BLOQUE QUE MOVI PARA QUE ENTRARA AQUI PRIMERO###########
+        elif measured_depth >= STAR_2ND_BUILD_MD:
+
+            last_inclination=inclination
+            last_north_south= north_south
+            last_vertical_distance = vertical_distance
+            last_east_west = east_west
+
+            inclination+=BUILDUP_RATE_2_RADIANES
+
+            north_south = last_north_south + ((math.sin(last_inclination)*math.cos(last_azm)) + (math.sin(inclination)*math.cos(AZM_RADIANES)))*(1*(course_length/2))
+            east_west = last_east_west + ((math.sin(last_inclination)*math.sin(last_azm)) + (math.sin(inclination)*math.sin(AZM_RADIANES)))*(1*(course_length/2))
+            vertical_distance = last_vertical_distance + (math.cos(last_inclination) + math.cos(inclination))*(1*(course_length/2))
+            clouser_distance = math.sqrt(((north_south)**2)+((east_west)**2))
+            if 0 < AZM and AZM <= 90:
+                clouser_azimuth = math.degrees(abs(math.atan(east_west/north_south)))
+            elif 90 < AZM and AZM <= 180:
+               clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
+            elif 180 < AZM and AZM <= 270:
+                clouser_azimuth = 180 + math.degrees(abs(math.atan(east_west/north_south)))
+            elif 270 < AZM and AZM <= 360:
+                clouser_azimuth = 360 - math.degrees(abs(math.atan(east_west/north_south)))
+            directional_difference = AZM - clouser_azimuth
+            horizontal_section = clouser_distance * math.cos(directional_difference)
+            last_azm = AZM_RADIANES
+            print(f"el valor de x es{horizontal_section}.")
+            print(f"el valor de y es{vertical_distance}.")
+            graph2_x.append(horizontal_section)
+            graph2_y.append(vertical_distance)
+
+            
+
+            if measured_depth>=TOTAL_MEASURED_DEPTH:
+                break
+        #############################################################
+        elif measured_depth>=KICKOFF_POINT and inclination<MAX_HOLD_ANGULO_RADIANES:
+
+            last_inclination=inclination
+            last_north_south= north_south
+            last_vertical_distance = vertical_distance
+            last_east_west = east_west
+
+            inclination+=BUILDUP_RATE_1_RADIANES
+            # dog_leg_severity= ((math.degrees(math.acos((math.sin(last_inclination)*math.sin(inclination)*math.cos(AZM_RADIANES - last_azm)) + (math.cos(last_inclination)*math.cos(inclination)))))*100)/course_length
+            north_south = last_north_south + ((math.sin(last_inclination)*math.cos(last_azm)) + (math.sin(inclination)*math.cos(AZM_RADIANES)))*(1*(course_length/2))
+            east_west = last_east_west + ((math.sin(last_inclination)*math.sin(last_azm)) + (math.sin(inclination)*math.sin(AZM_RADIANES)))*(1*(course_length/2))
+            vertical_distance = last_vertical_distance + (math.cos(last_inclination) + math.cos(inclination))*(1*(course_length/2))
+            clouser_distance = math.sqrt(((north_south)**2)+((east_west)**2))
+            if 0 < AZM and AZM <= 90:
+                clouser_azimuth = math.degrees(abs(math.atan(east_west/north_south)))
+            elif 90 < AZM and AZM <= 180:
+               clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
+            elif 180 < AZM and AZM <= 270:
+                clouser_azimuth = 180 + math.degrees(abs(math.atan(east_west/north_south)))
+            elif 270 < AZM and AZM <= 360:
+                clouser_azimuth = 360 - math.degrees(abs(math.atan(east_west/north_south)))
+            directional_difference = AZM - clouser_azimuth
+            horizontal_section = clouser_distance * math.cos(directional_difference)
+            graph2_x.append(horizontal_section)
+            graph2_y.append(vertical_distance)
+            last_azm = AZM_RADIANES
+
+        elif measured_depth>= END_OF_BUILD_MD and measured_depth < STAR_2ND_BUILD_MD:
+            inclination = MAX_HOLD_ANGULO_RADIANES
+            last_inclination=inclination
+            last_north_south= north_south
+            last_vertical_distance = vertical_distance
+            last_east_west = east_west    
+            
+            # dog_leg_severity= ((math.degrees(math.acos((math.sin(last_inclination)*math.sin(inclination)*math.cos(AZM_RADIANES - last_azm)) + (math.cos(last_inclination)*math.cos(inclination)))))*100)/course_length
+            north_south = last_north_south + ((math.sin(last_inclination)*math.cos(last_azm)) + (math.sin(inclination)*math.cos(AZM_RADIANES)))*(1*(course_length/2))
+            east_west = last_east_west + ((math.sin(last_inclination)*math.sin(last_azm)) + (math.sin(inclination)*math.sin(AZM_RADIANES)))*(1*(course_length/2))
+            vertical_distance = last_vertical_distance + (math.cos(last_inclination) + math.cos(inclination))*(1*(course_length/2))
+            clouser_distance = math.sqrt(((north_south)**2)+((east_west)**2))
+            if 0 < AZM and AZM <= 90:
+                clouser_azimuth = math.degrees(abs(math.atan(east_west/north_south)))
+            elif 90 < AZM and AZM <= 180:
+               clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
+            elif 180 < AZM and AZM <= 270:
+                clouser_azimuth = 180 + math.degrees(abs(math.atan(east_west/north_south)))
+            elif 270 < AZM and AZM <= 360:
+                clouser_azimuth = 360 - math.degrees(abs(math.atan(east_west/north_south)))
+            directional_difference = AZM - clouser_azimuth
+            horizontal_section = clouser_distance * math.cos(directional_difference)
+            last_azm = AZM_RADIANES
+            graph2_x.append(horizontal_section)
+            graph2_y.append(vertical_distance)
+
+        
+
+        measured_depth+=100
     
     context={
         'BUILDUP_RATE_1':BUILDUP_RATE_1,

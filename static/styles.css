@@ -287,6 +287,13 @@ body{
     margin-top: 100px;
 }
 
+.grid-container--metodo3{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 70px;
+    margin-top: 70px;
+}
+
 .home__text-title{
     text-align: center;
     margin-top: 50px;

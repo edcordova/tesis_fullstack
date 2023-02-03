@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>TESIS BRAIAN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        <div class="main">
+             <div class="card">
+                <a href="{% url 'restart' %}">
+                    <img class='arrow-left' src="/static/image/arrow-left.svg">
+                </a>
+                <h1 class="card__title">CALING</h1>        
+                <h2 class="card__description">Resultados de Trayectoria tipo S</h2>
+                <div class="result__container">
+                    <h2>PERDIDAS DE PRESION</h2>
+                    <div class="grid-container--metodo3">
+                        <div> BUILD UP RATE: <span class="result">{{BUILDUP_RATE}}</span></div>
+                        <div> DROPOFF RATE: <span class="result">{{DROPOFF_RATE}}</span></div>
+                        <div>MAX HOLD ANGLE: <span class="result">{{MAX_HOLD_ANGULO}}</span></div>
+                        <div>EOB TVD:<span class="result"> {{END_OF_BUILD_TVD}}</span></div>
+                        <div>EOB MD:<span class="result">{{END_OF_BUILD_MD}}</span></div>
+                        <div>EOB DISPLACEMENT:<span class="result">{{END_OF_BUILD_DISPLACEMENT}}</span></div>
+                        <div>SOD MD:<span class="result">{{STAR_OF_DROP_MD}}</span></div>
+                        <div>SDO TVD:<span class="result">{{STAR_OF_DROP_TVD}}</span></div>
+                        <div>SOD DISPLACEMENT:<span class="result">{{STAR_OF_DROP_DISPLACEMENT}}</span></div>
+                        <div>EOB MEASURED DEPTH:<span class="result">{{TOTAL_MEASURED_DEPTH}}</span></div>
+                    
+                    </div>
+                    <div>
+                        {{ graph|safe }}
+                      </div>  
+    
+                      <div>
+                        {{graph2|safe}}
+                      </div>
+             </div>
+        </div>
+    </body>
+</html>

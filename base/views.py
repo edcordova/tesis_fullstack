@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 import math
 from .forms import TanqueForm, TuberiaForm,Metodo2Form, Metodo3FormJ,Metodo3FormS,Metodo3FormHorizontal
-
+from .plot import return_graph, return_graph_inv
+from io import StringIO
 
 class Tuberia:
 
@@ -35,10 +36,13 @@ def restart(request):
     print(request.META.get('HTTP_REFERER'))
 
     if request.GET.get('restart-si'):
+        global tuberias_pozo
+        global tuberias_tp
+        global tanques
         tuberias_pozo=[]
         tuberias_tp=[]
         tanques=[]
-        # dicc.clear()
+        
         return redirect('home') 
    
     ref = request.META.get('HTTP_REFERER')
@@ -54,9 +58,11 @@ def metodos(request):
     elif request.GET.get('metodo-2'):
         metodo=2;
         return redirect('form-casing')
+   
     elif request.GET.get('metodo-3'):
-        metodo=3;
+    
         return redirect('seleccion-metodo3')
+    
         
     return render(request, 'base/metodos.html')
 
@@ -325,34 +331,33 @@ def form_bha(request):
                 return redirect('resultados-1')
             elif metodo==2:
                 return redirect('form-metodo2')
-            elif metodo==3:
-                return redirect('resultados-3')
+            
 
-    print(metodo)   
+     
     context={'form':form}
     return render(request, 'base/form_bha.html', context)
 
 ############################FORM METODO 3#############################
 def form_j(request):
     form=Metodo3FormJ()
-    global target_tvd
-    global kop
-    global build_radius
-    global grado_azimud
-    global distancia_azimud
+    global TARGET_TVD
+    global KICKOFF_POINT
+    global BUILD_RADIUS
+    global AZM
+    global DISTANCE_AZM
     
     if request.method == 'POST':
         
         form = Metodo3FormJ(request.POST)
        
         if form.is_valid():
-            target_tvd=form.cleaned_data.get('target_tvd')
-            kop=form.cleaned_data.get('kop')
-            build_radius=form.cleaned_data.get('build_radius')
-            grado_azimud=form.cleaned_data.get('grado_azimud')
-            distancia_azimud=form.cleaned_data.get('distancia_azimud')
-            print(target_tvd, kop, build_radius)
-            return redirect('form-casing')
+            TARGET_TVD=form.cleaned_data.get('target_tvd')
+            KICKOFF_POINT=form.cleaned_data.get('kop')
+            BUILD_RADIUS=form.cleaned_data.get('build_radius')
+            AZM=form.cleaned_data.get('grado_azimud')
+            DISTANCE_AZM=form.cleaned_data.get('distancia_azimud')
+            
+            return redirect('resultados-31')
             
     
     context={'form':form}
@@ -360,26 +365,26 @@ def form_j(request):
 
 def form_s(request):
     form=Metodo3FormS()
-    global target_tvd
-    global kop
-    global build_radius
-    global grado_azimud
-    global distancia_azimud
-    global drop_radius
+    global TARGET_TVD
+    global KICKOFF_POINT
+    global BUILD_RADIUS
+    global AZM
+    global DISTANCE_AZM
+    global DROP_RADIUS
     
     if request.method == 'POST':
         
         form = Metodo3FormS(request.POST)
        
         if form.is_valid():
-            target_tvd=form.cleaned_data.get('target_tvd')
-            kop=form.cleaned_data.get('kop')
-            build_radius=form.cleaned_data.get('build_radius')
-            drop_radius=form.cleaned_data.get('build_radius')
-            grado_azimud=form.cleaned_data.get('grado_azimud')
-            distancia_azimud=form.cleaned_data.get('distancia_azimud')
-            print(target_tvd, kop, build_radius)
-            return redirect('form-casing')
+            TARGET_TVD=form.cleaned_data.get('target_tvd')
+            KICKOFF_POINT=form.cleaned_data.get('kop')
+            BUILD_RADIUS=form.cleaned_data.get('build_radius')
+            DROP_RADIUS=form.cleaned_data.get('drop_radius')
+            AZM=form.cleaned_data.get('grado_azimud')
+            DISTANCE_AZM=form.cleaned_data.get('distancia_azimud')
+            
+            return redirect('resultados-32')
             
     
     context={'form':form}
@@ -387,26 +392,26 @@ def form_s(request):
 
 def form_horizontal(request):
     form=Metodo3FormHorizontal()
-    global grado_azimud
-    global distancia_azimud
-    global target_tvd
-    global kop
-    global build_radius1
-    global build_radius2
+    global AZM
+    global DISTANCE_AZM
+    global TARGET_TVD
+    global KICKOFF_POINT
+    global BUILD_RADIUS_1
+    global BUILD_RADIUS_2
     
     if request.method == 'POST':
         
         form = Metodo3FormHorizontal(request.POST)
        
         if form.is_valid():
-            target_tvd=form.cleaned_data.get('target_tvd')
-            kop=form.cleaned_data.get('kop')
-            build_radius1=form.cleaned_data.get('build_radius1')
-            build_radius2=form.cleaned_data.get('build_radius2')
-            grado_azimud=form.cleaned_data.get('grado_azimud')
-            distancia_azimud=form.cleaned_data.get('distancia_azimud')
-            print(target_tvd, kop, build_radius)
-            return redirect('form-casing')
+            TARGET_TVD=form.cleaned_data.get('target_tvd')
+            KICKOFF_POINT=form.cleaned_data.get('kop')
+            BUILD_RADIUS_1=form.cleaned_data.get('build_radius1')
+            BUILD_RADIUS_2=form.cleaned_data.get('build_radius2')
+            AZM=form.cleaned_data.get('grado_azimud')
+            DISTANCE_AZM=form.cleaned_data.get('distancia_azimud')
+            
+            return redirect('resultados-33')
             
     
     context={'form':form}
@@ -668,5 +673,415 @@ def resultados2(request):
 
     return render(request, 'base/resultados-2.html', context)
 
-def resultados3j(request):
-    return render(request,'base/')
+
+#TIPO J
+def resultados31(request):
+    graph1_x=[0]
+    graph1_y=[0]
+    graph2_x=[1,1]
+    graph2_y=[1]
+
+    if 0 < AZM and AZM <= 90:
+        X = 'NORTH'
+        Y = 'EST'
+        BETA = AZM
+    elif 90 < AZM and AZM <= 180:
+        X = 'SOUTH'
+        Y = 'EST'
+        BETA = AZM - 90
+    elif 180 < AZM and AZM <= 270:
+        X = 'SOUTH'
+        Y = 'WEST'
+        BETA = AZM - 180
+    elif 270 < AZM and AZM <= 360:
+        X = 'NORTH'
+        Y = 'WEST'
+        BETA = AZM - 270
+    
+    linea_b = math.sin((BETA*math.pi)/180) * DISTANCE_AZM
+    linea_a = math.cos((BETA*math.pi)/180) * DISTANCE_AZM
+    graph1_x.append(linea_a)
+    graph1_y.append(linea_b)
+
+    BUILDUP_RATE = 5729.58 / BUILD_RADIUS
+    LINEA_DC = abs(BUILD_RADIUS - DISTANCE_AZM)
+    LINEA_DO = TARGET_TVD - KICKOFF_POINT
+    ANGULO_DOC = math.degrees(math.atan(LINEA_DC/LINEA_DO))
+    LINEA_OC = LINEA_DO/math.cos(((ANGULO_DOC*math.pi)/180))
+    ANGULO_BOC = math.degrees(math.acos(BUILD_RADIUS/LINEA_OC))
+    if BUILD_RADIUS < DISTANCE_AZM :
+        ANGULO_BOD = ANGULO_BOC - ANGULO_DOC
+    elif BUILD_RADIUS > DISTANCE_AZM :
+        ANGULO_BOD = ANGULO_BOC + ANGULO_DOC
+    MAX_HOLD_ANGULO = 90 - ANGULO_BOD
+    END_OF_BUILD_TVD = KICKOFF_POINT + (BUILD_RADIUS * math.sin((MAX_HOLD_ANGULO*math.pi)/180))
+    END_OF_BUILD_MD = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE) * 100)
+    END_OF_BUILD_DISPLACEMENT = BUILD_RADIUS - (BUILD_RADIUS * math.cos((MAX_HOLD_ANGULO*math.pi)/180))
+    LINEA_BC = math.sqrt((LINEA_OC**2) - (BUILD_RADIUS**2))
+    TOTAL_MEASURED_DEPTH = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE)*100) + LINEA_BC
+    
+    ##CONVERSION A RADIANES##
+    BUILDUP_RATE_RADIANES= BUILDUP_RATE*(math.pi/180)
+    AZM_RADIANES = AZM*(math.pi/180)
+    MAX_HOLD_ANGULO_R = MAX_HOLD_ANGULO * (math.pi/180)
+   
+    measured_depth=0
+    vertical_distance=0
+    inclination=0
+    horizontal_section=0
+    course_length = 100
+    north_south = 0
+    east_west = 0
+    last_azm = 0
+    graph2_x=[]
+    graph2_y=[]
+
+    while True:
+        if measured_depth<KICKOFF_POINT:
+            vertical_distance=measured_depth
+            graph2_x.append(horizontal_section)
+            graph2_y.append(vertical_distance)
+        
+        elif measured_depth>=KICKOFF_POINT and inclination<MAX_HOLD_ANGULO_R:
+
+            last_inclination=inclination
+            last_north_south= north_south
+            last_vertical_distance = vertical_distance
+            last_east_west = east_west
+
+            inclination+=BUILDUP_RATE_RADIANES
+            
+            # dog_leg_severity= ((math.degrees(math.acos((math.sin(last_inclination)*math.sin(inclination)*math.cos(AZM_RADIANES - last_azm)) + (math.cos(last_inclination)*math.cos(inclination)))))*100)/course_length
+            north_south = last_north_south + ((math.sin(last_inclination)*math.cos(last_azm)) + (math.sin(inclination)*math.cos(AZM_RADIANES)))*(1*(course_length/2))
+            east_west = last_east_west + ((math.sin(last_inclination)*math.sin(last_azm)) + (math.sin(inclination)*math.sin(AZM_RADIANES)))*(1*(course_length/2))
+            vertical_distance = last_vertical_distance + (math.cos(last_inclination) + math.cos(inclination))*(1*(course_length/2))
+            clouser_distance = math.sqrt(((north_south)**2)+((east_west)**2))
+            if 0 < AZM and AZM <= 90:
+                clouser_azimuth = math.degrees(abs(math.atan(east_west/north_south)))
+            elif 90 < AZM and AZM <= 180:
+               clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
+            elif 180 < AZM and AZM <= 270:
+                clouser_azimuth = 180 + math.degrees(abs(math.atan(east_west/north_south)))
+            elif 270 < AZM and AZM <= 360:
+                clouser_azimuth = 360 - math.degrees(abs(math.atan(east_west/north_south)))
+            directional_difference = AZM - clouser_azimuth
+            horizontal_section = clouser_distance * math.cos(directional_difference)
+            graph2_x.append(horizontal_section)
+            graph2_y.append(vertical_distance)
+            last_azm = AZM_RADIANES
+
+        elif measured_depth>= END_OF_BUILD_MD:
+            last_inclination=inclination
+            last_north_south= north_south
+            last_vertical_distance = vertical_distance
+            last_east_west = east_west
+
+            
+            
+            # dog_leg_severity= ((math.degrees(math.acos((math.sin(last_inclination)*math.sin(inclination)*math.cos(AZM_RADIANES - last_azm)) + (math.cos(last_inclination)*math.cos(inclination)))))*100)/course_length
+            north_south = last_north_south + ((math.sin(last_inclination)*math.cos(last_azm)) + (math.sin(inclination)*math.cos(AZM_RADIANES)))*(1*(course_length/2))
+            east_west = last_east_west + ((math.sin(last_inclination)*math.sin(last_azm)) + (math.sin(inclination)*math.sin(AZM_RADIANES)))*(1*(course_length/2))
+            vertical_distance = last_vertical_distance + (math.cos(last_inclination) + math.cos(inclination))*(1*(course_length/2))
+            clouser_distance = math.sqrt(((north_south)**2)+((east_west)**2))
+            if 0 < AZM and AZM <= 90:
+                clouser_azimuth = math.degrees(abs(math.atan(east_west/north_south)))
+            elif 90 < AZM and AZM <= 180:
+               clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
+            elif 180 < AZM and AZM <= 270:
+                clouser_azimuth = 180 + math.degrees(abs(math.atan(east_west/north_south)))
+            elif 270 < AZM and AZM <= 360:
+                clouser_azimuth = 360 - math.degrees(abs(math.atan(east_west/north_south)))
+            directional_difference = AZM - clouser_azimuth
+            horizontal_section = clouser_distance * math.cos(directional_difference)
+            last_azm = AZM_RADIANES
+            graph2_x.append(horizontal_section)
+            graph2_y.append(vertical_distance)
+
+            
+
+            if measured_depth>=TOTAL_MEASURED_DEPTH:
+                break
+
+        measured_depth+=100
+
+
+    # linea_b = math.sin((BETA*math.pi)/180) * DISTANCE_AZM
+    # linea_a = math.cos((BETA*math.pi)/180) * DISTANCE_AZM
+    # graph1_x.append(linea_a)
+    # graph1_y.append(linea_b)
+
+    # BUILDUP_RATE = 5729.58 / BUILD_RADIUS
+    # LINEA_DC = abs(BUILD_RADIUS - DISTANCE_AZM)
+    # LINEA_DO = TARGET_TVD - KICKOFF_POINT
+    # ANGULO_DOC = math.degrees(math.atan(LINEA_DC/LINEA_DO))
+    # LINEA_OC = LINEA_DO/math.cos(((ANGULO_DOC*math.pi)/180))
+    # ANGULO_BOC = math.degrees(math.acos(BUILD_RADIUS/LINEA_OC))
+    # if BUILD_RADIUS < DISTANCE_AZM :
+    #     ANGULO_BOD = ANGULO_BOC - ANGULO_DOC
+    # elif BUILD_RADIUS > DISTANCE_AZM :
+    #     ANGULO_BOD = ANGULO_BOC + ANGULO_DOC
+    # MAX_HOLD_ANGULO = 90 - ANGULO_BOD
+    # END_OF_BUILD_TVD = KICKOFF_POINT + (BUILD_RADIUS * math.sin((MAX_HOLD_ANGULO*math.pi)/180))
+    # END_OF_BUILD_MD = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE) * 100)
+    # END_OF_BUILD_DISPLACEMENT = BUILD_RADIUS - (BUILD_RADIUS * math.cos((MAX_HOLD_ANGULO*math.pi)/180))
+    # LINEA_BC = math.sqrt((LINEA_OC**2) - (BUILD_RADIUS**2))
+    # TOTAL_MEASURED_DEPTH = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE)*100) + LINEA_BC
+
+    # graph2_x.append(END_OF_BUILD_DISPLACEMENT)
+    # graph2_x.append(DISTANCE_AZM)
+    # graph2_y.append(KICKOFF_POINT)
+    # graph2_y.append(END_OF_BUILD_TVD)
+    # graph2_y.append(TARGET_TVD)
+
+
+    context={
+        'BUILDUP_RATE':BUILDUP_RATE,
+        'MAX_HOLD_ANGULO':MAX_HOLD_ANGULO,
+        'END_OF_BUILD_TVD':END_OF_BUILD_TVD,
+        'END_OF_BUILD_MD':END_OF_BUILD_MD,
+        'END_OF_BUILD_DISPLACEMENT':END_OF_BUILD_DISPLACEMENT,
+        'TOTAL_MEASURED_DEPTH':TOTAL_MEASURED_DEPTH,
+        'graph':return_graph(graph1_x,graph1_y),
+        'graph2':return_graph_inv(graph2_x,graph2_y)
+    }
+
+    
+    return render(request,'base/resultados-31.html', context)
+
+#RESULTADOS S
+def resultados32(request):
+    graph1_x=[0]
+    graph1_y=[0]
+    graph2_x=[1]
+    graph2_y=[1]
+
+    if 0 < AZM and AZM <= 90:
+        X = 'NORTH'
+        Y = 'EST'
+        BETA = AZM
+    elif 90 < AZM and AZM <= 180:
+        X = 'SOUTH'
+        Y = 'EST'
+        BETA = AZM - 90
+    elif 180 < AZM and AZM <= 270:
+        X = 'SOUTH'
+        Y = 'WEST'
+        BETA = AZM - 180
+    elif 270 < AZM and AZM <= 360:
+        X = 'NORTH'
+        Y = 'WEST'
+        BETA = AZM - 270
+
+    linea_b = math.sin((BETA*math.pi)/180) * DISTANCE_AZM
+    linea_a = math.cos((BETA*math.pi)/180) * DISTANCE_AZM
+    BUILDUP_RATE = 5729.58 / BUILD_RADIUS
+    DROPOFF_RATE =  5729.58 / DROP_RADIUS
+    LINEA_FE = abs(DISTANCE_AZM - (BUILD_RADIUS + DROP_RADIUS))
+    LINEA_EO = TARGET_TVD - KICKOFF_POINT
+    ANGULO_FOE = math.degrees(math.atan(LINEA_FE/LINEA_EO))
+    LINEA_OF = math.sqrt((LINEA_FE**2) + (LINEA_EO**2)) 
+    LINEA_FG = BUILD_RADIUS + DROP_RADIUS
+    ANGULO_FOG = math.degrees(math.asin(LINEA_FG/LINEA_OF))
+    MAX_HOLD_ANGULO = ANGULO_FOG - ANGULO_FOE
+    END_OF_BUILD_TVD = KICKOFF_POINT + (BUILD_RADIUS * math.sin((MAX_HOLD_ANGULO*math.pi)/180))
+    END_OF_BUILD_MD = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE) * 100)
+    END_OF_BUILD_DISPLACEMENT = BUILD_RADIUS - (BUILD_RADIUS * math.cos((MAX_HOLD_ANGULO*math.pi)/180))
+    LINEA_OG = math.sqrt((LINEA_OF**2) - (LINEA_FG**2))
+    STAR_OF_DROP_MD = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE)*100) + LINEA_OG
+    STAR_OF_DROP_TVD = END_OF_BUILD_TVD + (LINEA_OG * math.cos((MAX_HOLD_ANGULO*math.pi)/180))
+    STAR_OF_DROP_DISPLACEMENT = END_OF_BUILD_DISPLACEMENT + (LINEA_OG * math.sin((MAX_HOLD_ANGULO*math.pi)/180))
+    TOTAL_MEASURED_DEPTH = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE)*100) + LINEA_OG +((MAX_HOLD_ANGULO/DROPOFF_RATE)*100)
+
+    BUILDUP_RATE_RADIANES= BUILDUP_RATE*(math.pi/180)
+    AZM_RADIANES = AZM*(math.pi/180)
+    MAX_HOLD_ANGULO_R = MAX_HOLD_ANGULO*(math.pi/180)
+   
+    measured_depth=0
+    vertical_distance=0
+    inclination=0
+    horizontal_section=0
+    course_length = 100
+    north_south = 0
+    east_west = 0
+    last_azm = 0
+    
+    while True:
+        if measured_depth<KICKOFF_POINT:
+            vertical_distance=measured_depth
+            graph2_x.append(horizontal_section)
+            graph2_y.append(vertical_distance)
+
+        elif measured_depth>=KICKOFF_POINT and inclination<MAX_HOLD_ANGULO_R:
+
+            last_inclination=inclination
+            last_north_south= north_south
+            last_vertical_distance = vertical_distance
+            last_east_west = east_west
+
+            inclination+=BUILDUP_RATE_RADIANES
+            
+            dog_leg_severity= ((math.degrees(math.acos((math.sin(last_inclination)*math.sin(inclination)*math.cos(AZM_RADIANES - last_azm)) + (math.cos(last_inclination)*math.cos(inclination)))))*100)/course_length
+            north_south = last_north_south + ((math.sin(last_inclination)*math.cos(last_azm)) + (math.sin(inclination)*math.cos(AZM_RADIANES)))*(1*(course_length/2))
+            east_west = last_east_west + ((math.sin(last_inclination)*math.sin(last_azm)) + (math.sin(inclination)*math.sin(AZM_RADIANES)))*(1*(course_length/2))
+            vertical_distance = last_vertical_distance + (math.cos(last_inclination) + math.cos(inclination))*(1*(course_length/2))
+            clouser_distance = math.sqrt(((north_south)**2)+((east_west)**2))
+            if 0 < AZM and AZM <= 90:
+                clouser_azimuth = math.degrees(abs(math.atan(east_west/north_south)))
+            elif 90 < AZM and AZM <= 180:
+                clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
+            elif 180 < AZM and AZM <= 270:
+                clouser_azimuth = 180 + math.degrees(abs(math.atan(east_west/north_south)))
+            elif 270 < AZM and AZM <= 360:
+                clouser_azimuth = 360 - math.degrees(abs(math.atan(east_west/north_south)))
+            directional_difference = AZM - clouser_azimuth
+            horizontal_section = clouser_distance * math.cos(directional_difference)
+            graph2_x.append(horizontal_section)
+            graph2_y.append(vertical_distance)
+            last_azm = AZM_RADIANES
+
+        elif measured_depth>= END_OF_BUILD_MD:
+            last_inclination=inclination
+            last_north_south= north_south
+            last_vertical_distance = vertical_distance
+            last_east_west = east_west
+
+            if measured_depth>=STAR_OF_DROP_MD:
+                last_inclination=inclination
+                last_north_south= north_south
+                last_vertical_distance = vertical_distance
+                last_east_west = east_west
+
+                inclination -= DROPOFF_RATE
+
+                dog_leg_severity= ((math.degrees(math.acos((math.sin(last_inclination)*math.sin(inclination)*math.cos(AZM_RADIANES - last_azm)) + (math.cos(last_inclination)*math.cos(inclination)))))*100)/course_length
+                north_south = last_north_south + ((math.sin(last_inclination)*math.cos(last_azm)) + (math.sin(inclination)*math.cos(AZM_RADIANES)))*(1*(course_length/2))
+                east_west = last_east_west + ((math.sin(last_inclination)*math.sin(last_azm)) + (math.sin(inclination)*math.sin(AZM_RADIANES)))*(1*(course_length/2))
+                vertical_distance = last_vertical_distance + (math.cos(last_inclination) + math.cos(inclination))*(1*(course_length/2))
+                clouser_distance = math.sqrt(((north_south)**2)+((east_west)**2))
+                if 0 < AZM and AZM <= 90:
+                    clouser_azimuth = math.degrees(abs(math.atan(east_west/north_south)))
+                elif 90 < AZM and AZM <= 180:
+                    clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
+                elif 180 < AZM and AZM <= 270:
+                    clouser_azimuth = 180 + math.degrees(abs(math.atan(east_west/north_south)))
+                elif 270 < AZM and AZM <= 360:
+                    clouser_azimuth = 360 - math.degrees(abs(math.atan(east_west/north_south)))
+                directional_difference = AZM - clouser_azimuth
+                horizontal_section = clouser_distance * math.cos(directional_difference)
+                graph2_x.append(horizontal_section)
+                graph2_y.append(vertical_distance)
+                last_azm = AZM_RADIANES
+            else:
+                dog_leg_severity= ((math.degrees(math.acos((math.sin(last_inclination)*math.sin(inclination)*math.cos(AZM_RADIANES - last_azm)) + (math.cos(last_inclination)*math.cos(inclination)))))*100)/course_length
+                north_south = last_north_south + ((math.sin(last_inclination)*math.cos(last_azm)) + (math.sin(inclination)*math.cos(AZM_RADIANES)))*(1*(course_length/2))
+                east_west = last_east_west + ((math.sin(last_inclination)*math.sin(last_azm)) + (math.sin(inclination)*math.sin(AZM_RADIANES)))*(1*(course_length/2))
+                vertical_distance = last_vertical_distance + (math.cos(last_inclination) + math.cos(inclination))*(1*(course_length/2))
+                clouser_distance = math.sqrt(((north_south)**2)+((east_west)**2))
+                if 0 < AZM and AZM <= 90:
+                    clouser_azimuth = math.degrees(abs(math.atan(east_west/north_south)))
+                elif 90 < AZM and AZM <= 180:
+                    clouser_azimuth = 180 - math.degrees(abs(math.atan(east_west/north_south)))
+                elif 180 < AZM and AZM <= 270:
+                    clouser_azimuth = 180 + math.degrees(abs(math.atan(east_west/north_south)))
+                elif 270 < AZM and AZM <= 360:
+                    clouser_azimuth = 360 - math.degrees(abs(math.atan(east_west/north_south)))
+                directional_difference = AZM - clouser_azimuth
+                horizontal_section = clouser_distance * math.cos(directional_difference)
+                last_azm = AZM_RADIANES
+                graph2_x.append(horizontal_section)
+                graph2_y.append(vertical_distance)
+
+
+            
+        if measured_depth >= TOTAL_MEASURED_DEPTH: 
+            break
+        
+
+        measured_depth+=100
+        
+    context={
+        'BUILDUP_RATE':BUILDUP_RATE,
+        'DROPOFF_RATE':DROPOFF_RATE,
+        'MAX_HOLD_ANGULO':MAX_HOLD_ANGULO,
+        'END_OF_BUILD_TVD':END_OF_BUILD_TVD,
+        'END_OF_BUILD_MD':END_OF_BUILD_MD,
+        'END_OF_BUILD_DISPLACEMENT':END_OF_BUILD_DISPLACEMENT,
+        'STAR_OF_DROP_MD':STAR_OF_DROP_MD,
+        'STAR_OF_DROP_TVD':STAR_OF_DROP_TVD,
+        'STAR_OF_DROP_DISPLACEMENT':STAR_OF_DROP_DISPLACEMENT,
+        'TOTAL_MEASURED_DEPTH':TOTAL_MEASURED_DEPTH,
+        'graph':return_graph(graph1_x,graph1_y),
+        'graph2':return_graph_inv(graph2_x,graph2_y)
+    }
+
+    return render(request,'base/resultados-32.html', context)
+#RESULTADOS H
+def resultados33(request):
+    graph1_x=[0]
+    graph1_y=[0]
+    graph2_x=[1,1]
+    graph2_y=[1]
+
+    if 0 < AZM and AZM <= 90:
+        X = 'NORTH'
+        Y = 'EST'
+        BETA = AZM
+    elif 90 < AZM and AZM <= 180:
+        X = 'SOUTH'
+        Y = 'EST'
+        BETA = AZM - 90
+    elif 180 < AZM and AZM <= 270:
+        X = 'SOUTH'
+        Y = 'WEST'
+        BETA = AZM - 180
+    elif 270 < AZM and AZM <= 360:
+        X = 'NORTH'
+        Y = 'WEST'
+        BETA = AZM - 270
+    
+    linea_b = math.sin((BETA*math.pi)/180) * DISTANCE_AZM
+    linea_a = math.cos((BETA*math.pi)/180) * DISTANCE_AZM
+    graph1_x.append(linea_a)
+    graph1_y.append(linea_b)
+
+
+    BUILDUP_RATE_1 = 5729.58 / BUILD_RADIUS_1
+    BUILDUP_RATE_2 = 5729.58 / BUILD_RADIUS_2
+    LINEA_EG = (TARGET_TVD -KICKOFF_POINT) - BUILD_RADIUS_2
+    LINEA_EO = DISTANCE_AZM - BUILD_RADIUS_1
+    ANGULO_GOE = math.degrees(math.atan(LINEA_EG/LINEA_EO))
+    LINEA_OG = math.sqrt((LINEA_EG**2) + (LINEA_EO**2))
+    LINEA_OF = BUILD_RADIUS_1 - BUILD_RADIUS_2
+    ANGULO_GOF = math.degrees(math.acos(LINEA_OF/LINEA_OG))
+    MAX_HOLD_ANGULO = 180 -ANGULO_GOE - ANGULO_GOF
+    END_OF_BUILD_TVD_1 = KICKOFF_POINT + (BUILD_RADIUS_1 * math.sin((MAX_HOLD_ANGULO*math.pi)/180))
+    END_OF_BUILD_MD = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE_1) * 100)
+    END_OF_BUILD_DISPLACEMENT_1 = BUILD_RADIUS_1 - (BUILD_RADIUS_1 * math.cos((MAX_HOLD_ANGULO*math.pi)/180))
+    END_OF_BUILD_DISPLACEMENT_2 = BUILD_RADIUS_2 - (BUILD_RADIUS_2 * math.cos((MAX_HOLD_ANGULO*math.pi)/180))
+    LINEA_FG = math.sqrt((LINEA_OG**2) - (LINEA_OF**2)) 
+    STAR_2ND_BUILD_MD = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE_1)*100) + LINEA_FG
+    ANGULO_CGD = 90 - MAX_HOLD_ANGULO
+    TOTAL_MEASURED_DEPTH = KICKOFF_POINT + ((MAX_HOLD_ANGULO/BUILDUP_RATE_1)*100) + LINEA_FG +((ANGULO_CGD/BUILDUP_RATE_2)*100)
+
+    graph2_x.append(END_OF_BUILD_DISPLACEMENT_1)
+    graph2_x.append(END_OF_BUILD_DISPLACEMENT_2)
+    graph2_x.append(TOTAL_MEASURED_DEPTH)
+    graph2_y.append(KICKOFF_POINT)
+    graph2_y.append(END_OF_BUILD_TVD_1)
+    graph2_y.append(STAR_2ND_BUILD_MD)
+    graph2_y.append(TARGET_TVD)
+    
+    context={
+        'BUILDUP_RATE_1':BUILDUP_RATE_1,
+        'BUILDUP_RATE_2':BUILDUP_RATE_2,
+        'MAX_HOLD_ANGULO':MAX_HOLD_ANGULO,
+        'END_OF_BUILD_TVD_1':END_OF_BUILD_TVD_1,
+        'END_OF_BUILD_MD':END_OF_BUILD_MD,
+        'END_OF_BUILD_DISPLACEMENT_1':END_OF_BUILD_DISPLACEMENT_1,
+        'STAR_2ND_BUILD_MD':STAR_2ND_BUILD_MD,
+        'TOTAL_MEASURED_DEPTH':TOTAL_MEASURED_DEPTH,
+        'graph':return_graph(graph1_x,graph1_y),
+        'graph2':return_graph_inv(graph2_x,graph2_y)
+    }
+
+    return render(request,'base/resultados-33.html', context)

@@ -16,8 +16,9 @@
                 </a>
                 <h1 class="card__title">CALDRILLING</h1>        
                 <h2 class="card__description">Resultados de Trayectoria tipo J</h2>
+                <a class='link-result-forward' href="{%url 'resultados-31-graph'%}">Ver Grafica</a>
                 <div class="result__container">
-                    <h2>PERDIDAS DE PRESION</h2>
+                    
                     <div class="grid-container">
                             <div> BUILD UP RATE: <span class="result">{{BUILDUP_RATE}}</span></div>
                             <div>MAX HOLD ANGLE: <span class="result">{{MAX_HOLD_ANGULO}}</span></div>
@@ -27,13 +28,7 @@
                             <div>EOB MEASURED DEPTH:<span class="result">{{TOTAL_MEASURED_DEPTH}}</span></div>
                            
                     </div>                           
-                  <div>
-                    {{ graph|safe }}
-                  </div>  
-
-                  <div>
-                    {{graph2|safe}}
-                  </div>
+                  
                 </div>
              </div>
         </div>

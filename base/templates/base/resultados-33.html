@@ -17,7 +17,7 @@
                 <h1 class="card__title">CALDRILLING</h1>        
                 <h2 class="card__description">Resultados de Trayectoria tipo Horizontal</h2>
                 <div class="result__container">
-                    <h2>PERDIDAS DE PRESION</h2>
+                    <a class='link-result-forward' href="{%url 'resultados-31-graph'%}">Ver Grafica</a>
                     <div class="grid-container">
                             <div>BUILD UP RATE 1: <span class="result">{{BUILDUP_RATE_1}}</span></div>
                             <div>BUILD UP RATE 2: <span class="result">{{BUILDUP_RATE_2}}</span></div>
@@ -28,13 +28,7 @@
                             <div>START 2ND BUILD MD:<span class="result"> {{STAR_2ND_BUILD_MD}}</span></div>
                             <div>TOTAL MEASURED DEPTH:<span class="result">{{TOTAL_MEASURED_DEPTH}}</span></div>
                     </div>                           
-                    <div>
-                        {{ graph|safe }}
-                      </div>  
-    
-                      <div>
-                        {{graph2|safe}}
-                      </div>
+                    
                 </div>
              </div>
         </div>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>TESIS BRAIAN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        <div class="main__graph">
+             <div class="card__graph">
+                <a href="{% url 'restart' %}">
+                    <img class='arrow-left' src="/static/image/arrow-left.svg">
+                </a>
+                <h1 class="card__title">CALDRILLING</h1>        
+                
+                <div class="result__container">
+                  <a class='link-result-backward' href="{{ref}}">Volver a los resultados</a> 
+                      <div class="graph1">
+                        {{ graph|safe }}
+                      </div>  
+    
+                      <div class="graph2">
+                        {{graph2|safe}}
+                      </div>                           
+                </div>
+             </div>
+        </div>
+    </body>
+</html>

@@ -20,6 +20,7 @@ urlpatterns = [
     path('resultados-1/', views.resultados1, name='resultados-1'),
     path('resultados-2/', views.resultados2, name='resultados-2'),
     path('resultados-31/', views.resultados31, name='resultados-31'),
+    path('resultados-31-graph/', views.resultado_31_graph, name='resultados-31-graph'),
     path('resultados-32/', views.resultados32, name='resultados-32'),
     path('resultados-33/', views.resultados33, name='resultados-33'),
     path('restart/', views.restart, name='restart'),

@@ -676,6 +676,15 @@ def resultados2(request):
 
 #TIPO J
 def resultados31(request):
+
+    global graph1_x
+    global graph1_y
+    global graph2_x
+    global graph2_y
+    global X
+    global Y
+    
+
     graph1_x=[0]
     graph1_y=[0]
     graph2_x=[1]
@@ -689,20 +698,25 @@ def resultados31(request):
     north_south = 0
     east_west = 0
     last_azm = 0
+    
 
     if 0 < AZM and AZM <= 90:
+        
         X = 'NORTH'
         Y = 'EST'
         BETA = AZM
     elif 90 < AZM and AZM <= 180:
+        
         X = 'SOUTH'
         Y = 'EST'
         BETA = AZM - 90
     elif 180 < AZM and AZM <= 270:
+        
         X = 'SOUTH'
         Y = 'WEST'
         BETA = AZM - 180
     elif 270 < AZM and AZM <= 360:
+        
         X = 'NORTH'
         Y = 'WEST'
         BETA = AZM - 270
@@ -813,15 +827,35 @@ def resultados31(request):
         'END_OF_BUILD_MD':END_OF_BUILD_MD,
         'END_OF_BUILD_DISPLACEMENT':END_OF_BUILD_DISPLACEMENT,
         'TOTAL_MEASURED_DEPTH':TOTAL_MEASURED_DEPTH,
-        'graph':return_graph(graph1_x,graph1_y),
-        'graph2':return_graph_inv(graph2_x,graph2_y)
+        # 'graph':return_graph(graph1_x,graph1_y),
+        # 'graph2':return_graph_inv(graph2_x,graph2_y)
     }
 
     
     return render(request,'base/resultados-31.html', context)
 
+def resultado_31_graph(request):
+    ref = request.META.get('HTTP_REFERER')
+
+    context={
+        'ref':ref,
+        'graph':return_graph(graph1_x,graph1_y,X,Y),
+        'graph2':return_graph_inv(graph2_x,graph2_y)
+    }
+
+    return render(request, 'base/resultados-31-graph.html',context)
+
+
 #RESULTADOS S
 def resultados32(request):
+
+    global graph1_x
+    global graph1_y
+    global graph2_x
+    global graph2_y
+    global X
+    global Y
+
     graph1_x=[0]
     graph1_y=[0]
     graph2_x=[1]
@@ -854,6 +888,9 @@ def resultados32(request):
 
     linea_b = math.sin((BETA*math.pi)/180) * DISTANCE_AZM
     linea_a = math.cos((BETA*math.pi)/180) * DISTANCE_AZM
+    graph1_x.append(linea_a)
+    graph1_y.append(linea_b)
+
     BUILDUP_RATE = 5729.58 / BUILD_RADIUS
     DROPOFF_RATE =  5729.58 / DROP_RADIUS
     LINEA_FE = abs(DISTANCE_AZM - (BUILD_RADIUS + DROP_RADIUS))
@@ -910,8 +947,6 @@ def resultados32(request):
             directional_difference = AZM - clouser_azimuth
             horizontal_section = clouser_distance * math.cos(directional_difference)
             last_azm = AZM_RADIANES
-            print(f"el valor de x es{horizontal_section}.")
-            print(f"el valor de y es{vertical_distance}.")
             graph2_x.append(horizontal_section)
             graph2_y.append(vertical_distance)
 
@@ -988,13 +1023,21 @@ def resultados32(request):
         'STAR_OF_DROP_TVD':STAR_OF_DROP_TVD,
         'STAR_OF_DROP_DISPLACEMENT':STAR_OF_DROP_DISPLACEMENT,
         'TOTAL_MEASURED_DEPTH':TOTAL_MEASURED_DEPTH,
-        'graph':return_graph(graph1_x,graph1_y),
-        'graph2':return_graph_inv(graph2_x,graph2_y)
+        # 'graph':return_graph(graph1_x,graph1_y),
+        # 'graph2':return_graph_inv(graph2_x,graph2_y)
     }
 
     return render(request,'base/resultados-32.html', context)
 #RESULTADOS H
 def resultados33(request):
+    global graph1_x
+    global graph1_y
+    global graph2_x
+    global graph2_y
+    global X
+    global Y
+
+
     graph1_x=[0]
     graph1_y=[0]
     graph2_x=[1]
@@ -1162,8 +1205,11 @@ def resultados33(request):
         'END_OF_BUILD_DISPLACEMENT_1':END_OF_BUILD_DISPLACEMENT_1,
         'STAR_2ND_BUILD_MD':STAR_2ND_BUILD_MD,
         'TOTAL_MEASURED_DEPTH':TOTAL_MEASURED_DEPTH,
-        'graph':return_graph(graph1_x,graph1_y),
-        'graph2':return_graph_inv(graph2_x,graph2_y)
+        # 'graph':return_graph(graph1_x,graph1_y),
+        # 'graph2':return_graph_inv(graph2_x,graph2_y)
     }
 
     return render(request,'base/resultados-33.html', context)
+
+
+

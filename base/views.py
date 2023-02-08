@@ -486,14 +486,14 @@ def resultados1(request):
     volumen_total_sistema = volumen_total + volumen_mud_bbl
 
     context={
-        'capacidad_ss_bbl':capacidad_ss_bbl,
-        'volumen_ss':volumen_ss,
-        'volumen_mud':volumen_mud_bbl,
-        'volumen_desplazado':volumen_desplazado,
-        'volumen_seccion_tp_total':volumen_seccion_tp_total,
-        'volumen_pozo':volumen_pozo,
-        'volumen_anular':volumen_anular,
-        'volumen_total_sistema':volumen_total_sistema
+        'capacidad_ss_bbl':round(capacidad_ss_bbl,4),
+        'volumen_ss':round(volumen_ss,4),
+        'volumen_mud':round(volumen_mud_bbl,4),
+        'volumen_desplazado':round(volumen_desplazado,4),
+        'volumen_seccion_tp_total':round(volumen_seccion_tp_total,4),
+        'volumen_pozo':round(volumen_pozo,4),
+        'volumen_anular':round(volumen_anular,4),
+        'volumen_total_sistema':round(volumen_total_sistema,4)
     }
 
     return render(request,'base/resultados-1.html', context)
@@ -665,10 +665,10 @@ def resultados2(request):
     PERDIDAS_TOTALES = PERDIDA_PRESION + PERDIDA_PRESION_P
     
     context={
-        'PERDIDA_PRESION_P' : PERDIDA_PRESION_P,
-        'PERDIDA_PRESION' : PERDIDA_PRESION,
-        'PERDIDAS_TOTALES' : PERDIDAS_TOTALES,
-        'ECD' : ECD
+        'PERDIDA_PRESION_P' : round(PERDIDA_PRESION_P,4),
+        'PERDIDA_PRESION' : round(PERDIDA_PRESION,4),
+        'PERDIDAS_TOTALES' : round(PERDIDAS_TOTALES,4),
+        'ECD' : round(ECD,4)
     }
 
     return render(request, 'base/resultados-2.html', context)
@@ -821,12 +821,12 @@ def resultados31(request):
 
 
     context={
-        'BUILDUP_RATE':BUILDUP_RATE,
-        'MAX_HOLD_ANGULO':MAX_HOLD_ANGULO,
-        'END_OF_BUILD_TVD':END_OF_BUILD_TVD,
-        'END_OF_BUILD_MD':END_OF_BUILD_MD,
-        'END_OF_BUILD_DISPLACEMENT':END_OF_BUILD_DISPLACEMENT,
-        'TOTAL_MEASURED_DEPTH':TOTAL_MEASURED_DEPTH,
+        'BUILDUP_RATE':round(BUILDUP_RATE,4),
+        'MAX_HOLD_ANGULO':round(MAX_HOLD_ANGULO,4),
+        'END_OF_BUILD_TVD':round(END_OF_BUILD_TVD,4),
+        'END_OF_BUILD_MD':round(END_OF_BUILD_MD,4),
+        'END_OF_BUILD_DISPLACEMENT':round(END_OF_BUILD_DISPLACEMENT,4),
+        'TOTAL_MEASURED_DEPTH':round(TOTAL_MEASURED_DEPTH,4),
         # 'graph':return_graph(graph1_x,graph1_y),
         # 'graph2':return_graph_inv(graph2_x,graph2_y)
     }
@@ -1013,16 +1013,16 @@ def resultados32(request):
         measured_depth+=100
         
     context={
-        'BUILDUP_RATE':BUILDUP_RATE,
-        'DROPOFF_RATE':DROPOFF_RATE,
-        'MAX_HOLD_ANGULO':MAX_HOLD_ANGULO,
-        'END_OF_BUILD_TVD':END_OF_BUILD_TVD,
-        'END_OF_BUILD_MD':END_OF_BUILD_MD,
-        'END_OF_BUILD_DISPLACEMENT':END_OF_BUILD_DISPLACEMENT,
-        'STAR_OF_DROP_MD':STAR_OF_DROP_MD,
-        'STAR_OF_DROP_TVD':STAR_OF_DROP_TVD,
-        'STAR_OF_DROP_DISPLACEMENT':STAR_OF_DROP_DISPLACEMENT,
-        'TOTAL_MEASURED_DEPTH':TOTAL_MEASURED_DEPTH,
+        'BUILDUP_RATE':round(BUILDUP_RATE,4),
+        'DROPOFF_RATE':round(DROPOFF_RATE,4),
+        'MAX_HOLD_ANGULO':round(MAX_HOLD_ANGULO,4),
+        'END_OF_BUILD_TVD':round(END_OF_BUILD_TVD,4),
+        'END_OF_BUILD_MD':round(END_OF_BUILD_MD,4),
+        'END_OF_BUILD_DISPLACEMENT':round(END_OF_BUILD_DISPLACEMENT,4),
+        'STAR_OF_DROP_MD':round(STAR_OF_DROP_MD,4),
+        'STAR_OF_DROP_TVD':round(STAR_OF_DROP_TVD,4),
+        'STAR_OF_DROP_DISPLACEMENT':round(STAR_OF_DROP_DISPLACEMENT,4),
+        'TOTAL_MEASURED_DEPTH':round(TOTAL_MEASURED_DEPTH,4),
         # 'graph':return_graph(graph1_x,graph1_y),
         # 'graph2':return_graph_inv(graph2_x,graph2_y)
     }
@@ -1197,14 +1197,14 @@ def resultados33(request):
         measured_depth+=100
     
     context={
-        'BUILDUP_RATE_1':BUILDUP_RATE_1,
-        'BUILDUP_RATE_2':BUILDUP_RATE_2,
-        'MAX_HOLD_ANGULO':MAX_HOLD_ANGULO,
-        'END_OF_BUILD_TVD_1':END_OF_BUILD_TVD_1,
-        'END_OF_BUILD_MD':END_OF_BUILD_MD,
-        'END_OF_BUILD_DISPLACEMENT_1':END_OF_BUILD_DISPLACEMENT_1,
-        'STAR_2ND_BUILD_MD':STAR_2ND_BUILD_MD,
-        'TOTAL_MEASURED_DEPTH':TOTAL_MEASURED_DEPTH,
+        'BUILDUP_RATE_1':round(BUILDUP_RATE_1,4),
+        'BUILDUP_RATE_2':round(BUILDUP_RATE_2,4),
+        'MAX_HOLD_ANGULO':round(MAX_HOLD_ANGULO,4),
+        'END_OF_BUILD_TVD_1':round(END_OF_BUILD_TVD_1,4),
+        'END_OF_BUILD_MD':round(END_OF_BUILD_MD,4),
+        'END_OF_BUILD_DISPLACEMENT_1':round(END_OF_BUILD_DISPLACEMENT_1,4),
+        'STAR_2ND_BUILD_MD':round(STAR_2ND_BUILD_MD,4),
+        'TOTAL_MEASURED_DEPTH':round(TOTAL_MEASURED_DEPTH,4),
         # 'graph':return_graph(graph1_x,graph1_y),
         # 'graph2':return_graph_inv(graph2_x,graph2_y)
     }

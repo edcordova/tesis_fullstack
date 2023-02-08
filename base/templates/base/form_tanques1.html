@@ -17,14 +17,14 @@
                 </a>
                 <h1 class="card__title">CALDRILLING</h1>        
                 <h2 class="card__description">
-                    TANQUE #1
+                    Ingrese datos del Tanque #1
                 </h2>
                 <div class="form-tanques__container">
                     
                     <form id='form__submit' class="form-tanques" method="post" name="form_tanques">
                         {% csrf_token %}
                         
-                        <label for="weight" class="form-tanques__label">Weight</label>
+                        <label for="weight" class="form-tanques__label">Ancho (pies)</label>
                         <div class='form-tanques__input'>
                         {{form.weight}}
                         </div>
@@ -32,7 +32,7 @@
                         
 
                         
-                        <label for="height" class="form-tanques__label">Height</label>
+                        <label for="height" class="form-tanques__label">Alto (pies)</label>
                         <div class='form-tanques__input'>
                         {{form.height}}
                         </div>
@@ -40,7 +40,7 @@
                         
 
                        
-                        <label for="long" class="form-tanques__label">Long</label>
+                        <label for="long" class="form-tanques__label">Largo (pies)</label>
                         <div class='form-tanques__input'>
                         {{form.long}}
                         </div>
@@ -49,7 +49,7 @@
 
                         
                         
-                        <label for="mud" class="form-tanques__label">Mud</label>
+                        <label for="mud" class="form-tanques__label">Nivel de lodo (pies)</label>
                         <div class='form-tanques__input'>
                         {{form.mud}}
                         </div>
@@ -58,9 +58,9 @@
                       
                         <!-- <a href="http://127.0.0.1:8000/metodos/" onclick="document.getElementById('form__submit').submit();">test</a> -->
                                    
-                       <input type="submit" class="form__button-continue" value="Enviar y agregar otro tanque" name="button-continue"></input>
+                       <input type="submit" class="form__button-continue" value="Agregar otro tanque" name="button-continue"></input>
                         
-                       <input type="submit" class="form__button-stop" value="No agregar mas tanques y continuar" name="button-stop"></input>
+                       <input type="submit" class="form__button-stop" value="No agregar más tanques y continuar" name="button-stop"></input>
 
                     </form>
                     

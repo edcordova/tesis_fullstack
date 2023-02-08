@@ -16,14 +16,14 @@
                 </a>
                 <h1 class="card__title">CALDRILLING</h1>        
                 <h2 class="card__description">
-                    Linear#2
+                    Ingrese los datos de la Tubería #2
                 </h2>
                 <div class="form-tuberia__container">
                     
                     <form class="form-tuberia" method="post" name="form_tuberias">
                         {% csrf_token %}
 
-                        <label for="di" class="form-tuberias__label">Diametro Interno</label>
+                        <label for="di" class="form-tuberias__label">Diámetro Interno (pulgadas)</label>
                         <div class='form-tuberia__input'>
                         {{form.di}}
                         </div>
@@ -31,7 +31,7 @@
                         
 
                         
-                        <label for="de" class="form-tuberias__label">Diametro Externo</label>
+                        <label for="de" class="form-tuberias__label">Diámetro Externo (pulgadas)</label>
                         <div class='form-tuberia__input'>
                         {{form.de}}
                         </div>
@@ -39,7 +39,7 @@
                         
 
                        
-                        <label for="li" class="form-tuberias__label">Longitud Inicial</label>
+                        <label for="li" class="form-tuberias__label">Longitud Inicial (pies)</label>
                         <div class='form-tuberia__input'>
                         {{form.li}}
                         </div>
@@ -48,7 +48,7 @@
 
                         
                         
-                        <label for="lf" class="form-tuberias__label">Longitud Final</label>
+                        <label for="lf" class="form-tuberias__label">Longitud Final (pies)</label>
                         <div class='form-tuberia__input'>
                         {{form.lf}}
                         </div>

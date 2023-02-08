@@ -16,18 +16,21 @@
                 </a>
                 <h1 class="card__title">CALDRILLING</h1>        
                 <h2 class="card__description">Resultados de Trayectoria tipo Horizontal</h2>
-                <div class="result__container">
+                
                     <a class='link-result-forward' href="{%url 'resultados-31-graph'%}">Ver Grafica</a>
+                    
+                    <div class="result__container">
                     <div class="grid-container">
-                            <div>BUILD UP RATE 1: <span class="result">{{BUILDUP_RATE_1}}</span></div>
-                            <div>BUILD UP RATE 2: <span class="result">{{BUILDUP_RATE_2}}</span></div>
-                            <div>MAX HOLD ANGLE:<span class="result"> {{MAX_HOLD_ANGULO}}</span></div>
-                            <div>EOB TVD1:<span class="result">{{END_OF_BUILD_TVD_1}}</span></div>
-                            <div>EOB MD: <span class="result">{{END_OF_BUILD_MD}}</span></div>
-                            <div>EOB DISPLACEMENT: <span class="result">{{END_OF_BUILD_DISPLACEMENT_1}}</span></div>
-                            <div>START 2ND BUILD MD:<span class="result"> {{STAR_2ND_BUILD_MD}}</span></div>
-                            <div>TOTAL MEASURED DEPTH:<span class="result">{{TOTAL_MEASURED_DEPTH}}</span></div>
-                    </div>                           
+                            <div><span class="result--text">BUILD UP RATE 1:</span> <span class="result">{{BUILDUP_RATE_1}}</span></div>
+                            <div><span class="result--text">BUILD UP RATE 2:</span> <span class="result">{{BUILDUP_RATE_2}}</span></div>
+                            <div><span class="result--text">MAX HOLD ANGLE:</span><span class="result"> {{MAX_HOLD_ANGULO}}</span></div>
+                            <div><span class="result--text">EOB TVD1:</span><span class="result">{{END_OF_BUILD_TVD_1}}</span></div>
+                            <div><span class="result--text">EOB MD:</span> <span class="result">{{END_OF_BUILD_MD}}</span></div>
+                            <div><span class="result--text">EOB DISPLACEMENT:</span> <span class="result">{{END_OF_BUILD_DISPLACEMENT_1}}</span></div>
+                            <div><span class="result--text">START 2ND BUILD MD:</span><span class="result"> {{STAR_2ND_BUILD_MD}}</span></div>
+                            <div><span class="result--text">TOTAL MEASURED DEPTH:</span><span class="result">{{TOTAL_MEASURED_DEPTH}}</span></div>
+                    </div>   
+                </div>                        
                     
                 </div>
              </div>

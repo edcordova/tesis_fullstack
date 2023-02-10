@@ -11,18 +11,18 @@
     <body>
         <div class="main">
              <div class="card">
-                <a href="{% url 'restart' %}">
-                    <img class='arrow-left' src="/static/image/arrow-left.svg">
+                <a class="link-restart" href="{% url 'restart' %}">
+                    Reiniciar  
                 </a>
                 <h1 class="restart__title">CALDRILLING</h1>        
-                <h2 class="card__description">Resultados de Cálculos de Presión</h2>
+                <h2 class="card__description">Resultados de Cálculos de Pérdidas de Presión</h2>
                 <div class="result__container">
-                    <h2>PERDIDAS DE PRESIÓN</h2>
-                    <div class="grid-container">
-                            <div><span class="result--text">SARTA DE PERFORACIÓN:</span> <span class="result">{{PERDIDA_PRESION_P}}</span></div>
-                            <div><span class="result--text">ANULAR:</span> <span class="result">{{PERDIDA_PRESION}}</span></div>
-                            <div><span class="result--text">POZO:</span><span class="result"> {{PERDIDAS_TOTALES}}</span></div>
-                            <div><span class="result--text">ECD:</span><span class="result">{{ECD}}</span></div>
+                   
+                    <div class="grid-container--metodo2">
+                            <div><span class="result--text">SARTA DE PERFORACIÓN (psi)</span> <span class="result">{{PERDIDA_PRESION_P}}</span></div>
+                            <div><span class="result--text">ANULAR (psi)</span> <span class="result">{{PERDIDA_PRESION}}</span></div>
+                            <div><span class="result--text">POZO (psi)</span><span class="result"> {{PERDIDAS_TOTALES}}</span></div>
+                            <div><span class="result--text">ECD (Lbm/gal)</span><span class="result">{{ECD}}</span></div>
                     </div>                           
                     
                 </div>

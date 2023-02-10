@@ -57,7 +57,7 @@ def metodos(request):
         return redirect('form-tanques1')
     elif request.GET.get('metodo-2'):
         metodo=2;
-        return redirect('form-casing')
+        return redirect('form-metodo2')
    
     elif request.GET.get('metodo-3'):
     
@@ -101,7 +101,7 @@ def form_metodo2(request):
             PUNTO_CEDENTE=form.cleaned_data.get('punto_cedente')
             DENSIDAD_LODO=form.cleaned_data.get('densidad_lodo')
             
-            return redirect('resultados-2')
+            return redirect('form-casing')
             
     
     context={'form':form}
@@ -330,7 +330,7 @@ def form_bha(request):
             if metodo==1:
                 return redirect('resultados-1')
             elif metodo==2:
-                return redirect('form-metodo2')
+                return redirect('resultados-2')
             
 
      
@@ -702,23 +702,23 @@ def resultados31(request):
 
     if 0 < AZM and AZM <= 90:
         
-        X = 'NORTH'
-        Y = 'EST'
+        X = 'NORTE'
+        Y = 'ESTE'
         BETA = AZM
     elif 90 < AZM and AZM <= 180:
         
-        X = 'SOUTH'
-        Y = 'EST'
+        X = 'SUR'
+        Y = 'ESTE'
         BETA = AZM - 90
     elif 180 < AZM and AZM <= 270:
         
-        X = 'SOUTH'
-        Y = 'WEST'
+        X = 'SUR'
+        Y = 'OESTE'
         BETA = AZM - 180
     elif 270 < AZM and AZM <= 360:
         
-        X = 'NORTH'
-        Y = 'WEST'
+        X = 'NORTE'
+        Y = 'OESTE'
         BETA = AZM - 270
     
     linea_b = math.sin((BETA*math.pi)/180) * DISTANCE_AZM
@@ -870,20 +870,20 @@ def resultados32(request):
     last_azm = 0
 
     if 0 < AZM and AZM <= 90:
-        X = 'NORTH'
-        Y = 'EST'
+        X = 'NORTE'
+        Y = 'ESTE'
         BETA = AZM
     elif 90 < AZM and AZM <= 180:
-        X = 'SOUTH'
-        Y = 'EST'
+        X = 'SUR'
+        Y = 'ESTE'
         BETA = AZM - 90
     elif 180 < AZM and AZM <= 270:
-        X = 'SOUTH'
-        Y = 'WEST'
+        X = 'SUR'
+        Y = 'OESTE'
         BETA = AZM - 180
     elif 270 < AZM and AZM <= 360:
-        X = 'NORTH'
-        Y = 'WEST'
+        X = 'NORTE'
+        Y = 'OESTE'
         BETA = AZM - 270
 
     linea_b = math.sin((BETA*math.pi)/180) * DISTANCE_AZM
@@ -1052,20 +1052,20 @@ def resultados33(request):
     last_azm = 0
 
     if 0 < AZM and AZM <= 90:
-        X = 'NORTH'
-        Y = 'EST'
+        X = 'NORTE'
+        Y = 'ESTE'
         BETA = AZM
     elif 90 < AZM and AZM <= 180:
-        X = 'SOUTH'
-        Y = 'EST'
+        X = 'SUR'
+        Y = 'ESTE'
         BETA = AZM - 90
     elif 180 < AZM and AZM <= 270:
-        X = 'SOUTH'
-        Y = 'WEST'
+        X = 'SUR'
+        Y = 'OESTE'
         BETA = AZM - 180
     elif 270 < AZM and AZM <= 360:
-        X = 'NORTH'
-        Y = 'WEST'
+        X = 'NORTE'
+        Y = 'OESTE'
         BETA = AZM - 270
     
     linea_b = math.sin((BETA*math.pi)/180) * DISTANCE_AZM

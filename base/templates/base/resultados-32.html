@@ -11,8 +11,8 @@
     <body>
         <div class="main">
              <div class="card">
-                <a href="{% url 'restart' %}">
-                    <img class='arrow-left' src="/static/image/arrow-left.svg">
+                <a class="link-restart" href="{% url 'restart' %}">
+                    Reiniciar  
                 </a>
                 <h1 class="card__title">CALDRILLING</h1>        
                 <h2 class="card__description">Resultados de Trayectoria tipo S</h2>
@@ -20,16 +20,16 @@
                     <a class='link-result-forward' href="{%url 'resultados-31-graph'%}">Ver Grafica</a>
                     <div class="result__container">
                     <div class="grid-container--metodo3">
-                        <div> <span class="result--text">BUILD UP RATE:</span> <span class="result">{{BUILDUP_RATE}}</span></div>
-                        <div> <span class="result--text">DROPOFF RATE:</span> <span class="result">{{DROPOFF_RATE}}</span></div>
-                        <div><span class="result--text">MAX HOLD ANGLE:</span> <span class="result">{{MAX_HOLD_ANGULO}}</span></div>
-                        <div><span class="result--text">EOB TVD:</span><span class="result"> {{END_OF_BUILD_TVD}}</span></div>
-                        <div><span class="result--text">EOB MD:</span><span class="result">{{END_OF_BUILD_MD}}</span></div>
-                        <div><span class="result--text">EOB DISPLACEMENT:</span><span class="result">{{END_OF_BUILD_DISPLACEMENT}}</span></div>
-                        <div><span class="result--text">SOD MD:</span><span class="result">{{STAR_OF_DROP_MD}}</span></div>
-                        <div><span class="result--text">SDO TVD:</span><span class="result">{{STAR_OF_DROP_TVD}}</span></div>
-                        <div><span class="result--text">SOD DISPLACEMENT:</span><span class="result">{{STAR_OF_DROP_DISPLACEMENT}}</span></div>
-                        <div><span class="result--text">EOB MEASURED DEPTH:</span><span class="result">{{TOTAL_MEASURED_DEPTH}}</span></div>
+                        <div> <span class="result--text">TASA DE AUMENTO (grados)</span> <span class="result">{{BUILDUP_RATE}}</span></div>
+                        <div> <span class="result--text">TASA DE CAÍDA (grados)</span> <span class="result">{{DROPOFF_RATE}}</span></div>
+                        <div><span class="result--text">ANGULO DE DESVIO (grados)</span> <span class="result">{{MAX_HOLD_ANGULO}}</span></div>
+                        <div><span class="result--text">FIN DE LA CONTRUCCIÓN 1 TVD (pies)</span><span class="result"> {{END_OF_BUILD_TVD}}</span></div>
+                        <div><span class="result--text">FIN DE LA CONTRUCCIÓN 1 MD (pies)</span><span class="result">{{END_OF_BUILD_MD}}</span></div>
+                        <div><span class="result--text">DESPLAZAMIENTO HORIZONTAL 1 (pies)</span><span class="result">{{END_OF_BUILD_DISPLACEMENT}}</span></div>
+                        <div><span class="result--text">FIN DE LA CONTRUCCIÓN 2 MD (pies)</span><span class="result">{{STAR_OF_DROP_MD}}</span></div>
+                        <div><span class="result--text">FIN DE LA CONTRUCCIÓN 2 TVD (pies)</span><span class="result">{{STAR_OF_DROP_TVD}}</span></div>
+                        <div><span class="result--text">DESPLAZAMIENTO HORIZONTAL 2 (pies)</span><span class="result">{{STAR_OF_DROP_DISPLACEMENT}}</span></div>
+                        <div><span class="result--text">DISTANCIA MEDIDA DE LA TUBERÍA AL OBJETIVO (pies)</span><span class="result">{{TOTAL_MEASURED_DEPTH}}</span></div>
                     
                     </div>
                 

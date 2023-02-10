@@ -11,12 +11,12 @@
     <body>
         <div class="main">
              <div class="card">
-                <a href="{% url 'restart' %}">
-                    <img class='arrow-left' src="/static/image/arrow-left.svg">
+                <a class="link-restart" href="{% url 'restart' %}">
+                    Reiniciar  
                 </a>
                 <h1 class="card__title">CALDRILLING</h1>        
                 <h2 class="card__description--result">
-                    POZO TIPO J
+                   Ingrese los Datos para la Construcción de la Trayectoria Tipo J
                     
                 </h2>
                 <div class="form-metodo3__container">
@@ -25,21 +25,21 @@
                         {% csrf_token %}
 
                         
-                        <label for="di" class="form-tuberias__label">Grado Azimud</label>
+                        <label for="di" class="form-tuberias__label">Grados Azimud (grados)</label>
                         <div class='form-tuberia__input'>
                         {{form.grado_azimud}}
                         </div>
                         <!-- <input class='form-tanques__input' type="text" name="weight" >ft -->
                         
                         
-                        <label for="di" class="form-tuberias__label">Distancia Azimud</label>
+                        <label for="di" class="form-tuberias__label">Distancia Azimud (pies)</label>
                         <div class='form-tuberia__input'>
                         {{form.distancia_azimud}}
                         </div>
                         <!-- <input class='form-tanques__input' type="text" name="weight" >ft -->
                         
 
-                        <label for="di" class="form-tuberias__label">Target TVD</label>
+                        <label for="di" class="form-tuberias__label">Profundidad del Pozo (pies)</label>
                         <div class='form-tuberia__input'>
                         {{form.target_tvd}}
                         </div>
@@ -47,7 +47,7 @@
                         
 
                         
-                        <label for="de" class="form-tuberias__label">KOP</label>
+                        <label for="de" class="form-tuberias__label">Punto de Arranque (pies)</label>
                         <div class='form-tuberia__input'>
                         {{form.kop}}
                         </div>
@@ -55,7 +55,7 @@
                         
 
                        
-                        <label for="li" class="form-tuberias__label">Build Radius</label>
+                        <label for="li" class="form-tuberias__label">Tasa de Construcción (grados/pies)</label>
                         <div class='form-tuberia__input'>
                         {{form.build_radius}}
                         </div>
@@ -64,7 +64,7 @@
                                                                              
 
                                            
-                        <button type="submit" class="form__button form__button--metodo3 ">Agregar y continuar</button>
+                        <button type="submit" class="form__button form__button--metodo3 ">Calcular</button>
 
                     </form>
                     
